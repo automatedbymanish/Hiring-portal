@@ -443,6 +443,128 @@ const styles = `
     font-size: 14px;
   }
 
+  /* ── INSTRUCTIONS POPUP ── */
+  .popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 40, 0.72);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .popup-box {
+    background: #fff;
+    border-radius: 24px;
+    padding: 36px 32px 32px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 24px 64px rgba(79,142,247,0.18);
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn {
+    from { transform: scale(0.88); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+  .popup-icon {
+    width: 58px;
+    height: 58px;
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin: 0 auto 16px;
+  }
+  .popup-box h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 21px;
+    font-weight: 900;
+    color: #1a1d3b;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .popup-box .popup-sub {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .rules-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    margin-bottom: 28px;
+  }
+  .rules-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
+  }
+  .rule-badge {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-top: 1px;
+  }
+  .rule-badge.red   { background: #fee2e2; }
+  .rule-badge.amber { background: #fef3c7; }
+  .rule-badge.blue  { background: #dbeafe; }
+  .rule-badge.green { background: #dcfce7; }
+  .rule-badge.purple{ background: #ede9fe; }
+  .rule-text strong {
+    display: block;
+    font-weight: 700;
+    color: #111827;
+    font-size: 13.5px;
+  }
+  .rule-text span {
+    color: #6b7280;
+    font-size: 12.5px;
+  }
+  .popup-warning {
+    background: linear-gradient(90deg, #fef3c7, #fff7ed);
+    border: 1.5px solid #fbbf24;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: #92400e;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .btn-agree {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #4f8ef7, #a259f7);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(79,142,247,0.30);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .btn-agree:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79,142,247,0.40);
+  }
+
   /* ── STEPS ── */
   .steps {
     display: flex;
@@ -492,10 +614,12 @@ export default function App() {
   const [timeLeft, setTimeLeft] = useState(1800);
   const [answered, setAnswered] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const apiUrl =
     "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec";
 
+  // Fetch questions on mount
   useEffect(() => {
     fetch(apiUrl)
       .then((res) => res.json())
@@ -503,34 +627,30 @@ export default function App() {
   }, []);
 
   function handleDepartment(dept) {
-
-  setSelectedDept(dept);
-
-  const filtered = questions.filter(
-    (q) => q.department === dept
-  );
-
-  const shuffled = [...filtered].sort(
-    () => 0.5 - Math.random()
-  );
-
-  setFilteredQuestions(
-    shuffled.slice(0, 10)
-  );
-
-  setScore(null);
-}
+    setSelectedDept(dept);
+    const filtered = questions.filter((q) => q.department === dept);
+    const shuffled = [...filtered].sort(() => 0.5 - Math.random());
+    setFilteredQuestions(shuffled.slice(0, 10));
+    setScore(null);
+  }
 
   function startExam() {
     if (!candidateName || !candidateEmail || !candidateMobile || !selectedDept) {
       alert("Please fill all details before starting.");
       return;
     }
+    // Pehle instructions popup dikhao
+    setShowInstructions(true);
+  }
+
+  function agreeAndStart() {
+    setShowInstructions(false);
     setView("exam");
   }
 
+  // ── submitTest defined with useCallback (no useEffect inside) ──
   const submitTest = useCallback(() => {
-    setIsSubmitting(true); // show overlay immediately
+    setIsSubmitting(true);
     let total = 0;
     filteredQuestions.forEach((q, index) => {
       const selected = document.querySelector(`input[name="q${index}"]:checked`);
@@ -557,10 +677,46 @@ export default function App() {
       })
       .catch(() => {
         setIsSubmitting(false);
-        setView("result"); // show result even if API fails
+        setView("result");
       });
   }, [filteredQuestions, candidateName, candidateEmail, candidateMobile, selectedDept, apiUrl]);
 
+  // ── Security: Tab switch / copy-paste / PrintScreen — exam ke dauran ──
+  useEffect(() => {
+    if (view !== "exam") return;
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        alert("Security violation detected! Your test has been auto submitted.");
+        submitTest();
+      }
+    };
+
+    const blockCopyPaste = (e) => {
+      e.preventDefault();
+    };
+
+    const handleKey = (e) => {
+      if (e.key === "PrintScreen") {
+        alert("Screenshot detected! Your test has been terminated.");
+        submitTest();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("copy", blockCopyPaste);
+    document.addEventListener("paste", blockCopyPaste);
+    document.addEventListener("keydown", handleKey);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      document.removeEventListener("copy", blockCopyPaste);
+      document.removeEventListener("paste", blockCopyPaste);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [view, submitTest]);
+
+  // ── Timer ──
   useEffect(() => {
     if (view === "exam" && timeLeft > 0) {
       const timer = setInterval(() => setTimeLeft((p) => p - 1), 1000);
@@ -580,7 +736,6 @@ export default function App() {
     setAnswered(c);
   }
 
-  // Reset everything for next candidate
   function resetForNewCandidate() {
     setCandidateName("");
     setCandidateEmail("");
@@ -592,6 +747,7 @@ export default function App() {
     setTimeLeft(1800);
     setAnswered(0);
     setIsSubmitting(false);
+    setShowInstructions(false);
     setView("login");
   }
 
@@ -606,6 +762,67 @@ export default function App() {
   return (
     <>
       <style>{styles}</style>
+      {/* ── INSTRUCTIONS POPUP ── */}
+      {showInstructions && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <div className="popup-icon">⚠️</div>
+            <h2>Exam Instructions</h2>
+            <p className="popup-sub">Please read all rules carefully before starting</p>
+            <ul className="rules-list">
+              <li>
+                <span className="rule-badge red">🚫</span>
+                <span className="rule-text">
+                  <strong>No Tab Switching</strong>
+                  <span>Do not minimize or switch to any other tab/window — test will auto-submit.</span>
+                </span>
+              </li>
+              <li>
+                <span className="rule-badge amber">📋</span>
+                <span className="rule-text">
+                  <strong>No Copy / Paste</strong>
+                  <span>Copying or pasting any content during the exam is strictly prohibited.</span>
+                </span>
+              </li>
+              <li>
+                <span className="rule-badge purple">📸</span>
+                <span className="rule-text">
+                  <strong>No Screenshots</strong>
+                  <span>Taking a screenshot (PrintScreen) will immediately terminate your test.</span>
+                </span>
+              </li>
+              <li>
+                <span className="rule-badge blue">📱</span>
+                <span className="rule-text">
+                  <strong>No Mobile Capture</strong>
+                  <span>Do not use your mobile phone to photograph or record the questions.</span>
+                </span>
+              </li>
+              <li>
+                <span className="rule-badge amber">🪑</span>
+                <span className="rule-text">
+                  <strong>Stay at Your Seat</strong>
+                  <span>Do not leave or move from your designated sitting place during the exam.</span>
+                </span>
+              </li>
+              <li>
+                <span className="rule-badge green">👁️</span>
+                <span className="rule-text">
+                  <strong>No One Behind You</strong>
+                  <span>Ensure that no person is standing or sitting behind you while attempting the test.</span>
+                </span>
+              </li>
+            </ul>
+            <div className="popup-warning">
+              ⚠️ Any violation may lead to immediate disqualification
+            </div>
+            <button className="btn-agree" onClick={agreeAndStart}>
+              ✅ I Agree — Start My Test
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="portal-wrapper">
 
         {/* Header */}
@@ -737,7 +954,6 @@ export default function App() {
               {isSubmitting ? "⏳ Submitting..." : "✅ Submit Test"}
             </button>
 
-            {/* Submitting Overlay */}
             {isSubmitting && (
               <div className="submit-overlay">
                 <div className="submit-spinner" />
