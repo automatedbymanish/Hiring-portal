@@ -456,14 +456,18 @@ const styles = `
     padding: 20px;
   }
   .popup-box {
-    background: #fff;
-    border-radius: 24px;
-    padding: 36px 32px 32px;
-    max-width: 520px;
-    width: 100%;
-    box-shadow: 0 24px 64px rgba(79,142,247,0.18);
-    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  }
+  background: #fff;
+  border-radius: 24px;
+  padding: 36px 32px 32px;
+  max-width: 520px;
+  width: 100%;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  box-shadow: 0 24px 64px rgba(79,142,247,0.18);
+  animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
   @keyframes popIn {
     from { transform: scale(0.88); opacity: 0; }
     to   { transform: scale(1);    opacity: 1; }
