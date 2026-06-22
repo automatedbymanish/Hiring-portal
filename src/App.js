@@ -600,17 +600,501 @@ const styles = `
     width: 24px; height: 2px;
     background: #e5e7eb;
   }
+
+  /* ── ADMIN LOGIN ── */
+  .admin-login-wrap {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .admin-login-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #1a1d3b, #4f3fa0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 18px;
+    box-shadow: 0 4px 18px rgba(79,62,160,0.28);
+  }
+  .admin-login-wrap h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #1a1d3b;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .admin-login-wrap .subtitle {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 13px;
+    margin-bottom: 28px;
+  }
+  .btn-admin-login {
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+    background: linear-gradient(135deg, #1a1d3b, #4f3fa0);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(79,62,160,0.30);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .btn-admin-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79,62,160,0.40);
+  }
+  .btn-back-link {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    color: #6b7280;
+    font-size: 13px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .btn-back-link:hover { color: #4f8ef7; }
+
+  /* ── DASHBOARD ── */
+  .dashboard-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .dashboard-header-left h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: #1a1d3b;
+  }
+  .dashboard-header-left p {
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 3px;
+  }
+  .dashboard-header-right {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn-refresh {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #4f8ef7, #a259f7);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(79,142,247,0.28);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-refresh:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(79,142,247,0.38);
+  }
+  .btn-refresh.spinning svg {
+    animation: spin 0.7s linear infinite;
+  }
+  .btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    color: #b91c1c;
+    border: 1.5px solid #fca5a5;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-logout:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(185,28,28,0.15);
+  }
+
+  /* ── STAT CARDS ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1.5px solid #f3f4f6;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(79,142,247,0.12);
+  }
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .stat-icon.total  { background: linear-gradient(135deg, #dbeafe, #ede9fe); }
+  .stat-icon.pass   { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+  .stat-icon.fail   { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+  .stat-icon.rate   { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+  .stat-info .stat-num {
+    font-family: 'Nunito', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #1a1d3b;
+    line-height: 1;
+  }
+  .stat-info .stat-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ── CONTROLS ── */
+  .controls-bar {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    border: 1.5px solid #f3f4f6;
+  }
+  .search-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+  }
+  .search-input-wrap .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 16px;
+    pointer-events: none;
+  }
+  .search-input-wrap input {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    color: #111827;
+    background: #f9fafb;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-input-wrap input:focus {
+    border-color: #4f8ef7;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(79,142,247,0.12);
+  }
+  .filter-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    border: 1.5px solid #e5e7eb;
+    background: #f9fafb;
+    color: #6b7280;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: #4f8ef7; color: #4f8ef7; }
+  .filter-btn.active-all {
+    background: linear-gradient(135deg, #4f8ef7, #a259f7);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 2px 10px rgba(79,142,247,0.30);
+  }
+  .filter-btn.active-pass {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 2px 10px rgba(22,163,74,0.25);
+  }
+  .filter-btn.active-fail {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 2px 10px rgba(220,38,38,0.25);
+  }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    border: 1.5px solid #f3f4f6;
+    overflow: hidden;
+  }
+  .table-scroll {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+  }
+  thead {
+    background: linear-gradient(135deg, #1a1d3b, #2d3069);
+  }
+  thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.12s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #f8faff; }
+  tbody td {
+    padding: 13px 16px;
+    font-size: 13px;
+    color: #374151;
+    vertical-align: middle;
+  }
+  .td-name {
+    font-weight: 700;
+    color: #1a1d3b;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+  }
+  .td-email {
+    color: #4f8ef7;
+    font-size: 12px;
+  }
+  .td-mobile {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: #374151;
+  }
+  .post-pill {
+    display: inline-block;
+    background: linear-gradient(90deg, #e0eaff, #ede0ff);
+    color: #4f3fa0;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+  .score-pill {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #1a1d3b;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+  }
+  .result-badge.pass {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1.5px solid #86efac;
+  }
+  .result-badge.fail {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1.5px solid #fca5a5;
+  }
+  .td-time {
+    font-size: 11px;
+    color: #9ca3af;
+    white-space: nowrap;
+  }
+  .table-footer {
+    padding: 14px 18px;
+    background: #f9fafb;
+    border-top: 1px solid #f3f4f6;
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .no-data {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+  }
+  .no-data .no-data-icon {
+    font-size: 44px;
+    margin-bottom: 12px;
+  }
+  .no-data p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #6b7280;
+  }
+  .no-data span {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 4px;
+    display: block;
+  }
+  .loading-row td {
+    text-align: center;
+    padding: 50px;
+    color: #9ca3af;
+  }
+  .dash-spinner {
+    width: 36px;
+    height: 36px;
+    border: 4px solid #e5e7eb;
+    border-top-color: #4f8ef7;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+
+  /* ── VIEW DASHBOARD BUTTON ── */
+  .btn-dashboard {
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #1a1d3b, #4f3fa0);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(79,62,160,0.25);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-dashboard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79,62,160,0.35);
+  }
+  .btn-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    margin-bottom: 2px;
+  }
+  .btn-divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+  }
+  .btn-divider span {
+    font-size: 11px;
+    color: #9ca3af;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-header { flex-direction: column; align-items: flex-start; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .controls-bar { flex-direction: column; }
+    .search-input-wrap { min-width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
 `;
 
+// ── Google Apps Script endpoints ──
+const EXAM_API =
+  "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec";
+
+const RESULTS_API =
+  "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec?action=getResults";
+// ↑ Replace this URL with your NEW Apps Script deployment that handles ?action=getResults
+// See the Apps Script code provided below the component.
+
+// ── Hardcoded Admin Credentials ──
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "ksk@123";
+
 export default function App() {
+  // ── Existing state ──
   const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
   const [selectedDept, setSelectedDept] = useState("");
   const [candidateName, setCandidateName] = useState("");
   const [candidateEmail, setCandidateEmail] = useState("");
   const [candidateMobile, setCandidateMobile] = useState("");
-  // view: "login" | "exam" | "result"
-  const [view, setView] = useState("login");
+  const [view, setView] = useState("login"); // "login"|"exam"|"result"|"adminLogin"|"dashboard"
   const [score, setScore] = useState(null);
   const [totalQs, setTotalQs] = useState(0);
   const [timeLeft, setTimeLeft] = useState(1800);
@@ -618,16 +1102,48 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
 
-  const apiUrl =
-    "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec";
+  // ── Admin / Dashboard state ──
+  const [adminUser, setAdminUser] = useState("");
+  const [adminPass, setAdminPass] = useState("");
+  const [dashboardData, setDashboardData] = useState([]);
+  const [dashLoading, setDashLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [resultFilter, setResultFilter] = useState("ALL"); // "ALL"|"PASS"|"FAIL"
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Fetch questions on mount
+  // ── Fetch exam questions on mount ──
   useEffect(() => {
-    fetch(apiUrl)
+    fetch(EXAM_API)
       .then((res) => res.json())
       .then((data) => setQuestions(data));
   }, []);
 
+  // ── Fetch dashboard data ──
+  const fetchDashboardData = useCallback(async (showSpinner = true) => {
+    if (showSpinner) setDashLoading(true);
+    setIsRefreshing(true);
+    try {
+      const res = await fetch(RESULTS_API);
+      const data = await res.json();
+      // Support both array directly or { data: [...] }
+      setDashboardData(Array.isArray(data) ? data : data.data || []);
+    } catch (err) {
+      console.error("Dashboard fetch failed:", err);
+      setDashboardData([]);
+    } finally {
+      setDashLoading(false);
+      setIsRefreshing(false);
+    }
+  }, []);
+
+  // Auto-fetch when dashboard view opens
+  useEffect(() => {
+    if (view === "dashboard") {
+      fetchDashboardData(true);
+    }
+  }, [view, fetchDashboardData]);
+
+  // ── Existing helpers ──
   function handleDepartment(dept) {
     setSelectedDept(dept);
     const filtered = questions.filter((q) => q.department === dept);
@@ -641,7 +1157,6 @@ export default function App() {
       alert("Please fill all details before starting.");
       return;
     }
-    // Pehle instructions popup dikhao
     setShowInstructions(true);
   }
 
@@ -650,7 +1165,6 @@ export default function App() {
     setView("exam");
   }
 
-  // ── submitTest defined with useCallback (no useEffect inside) ──
   const submitTest = useCallback(() => {
     setIsSubmitting(true);
     let total = 0;
@@ -661,7 +1175,7 @@ export default function App() {
     const finalResult = total >= 6 ? "PASS" : "FAIL";
     setScore(total);
     setTotalQs(filteredQuestions.length);
-    fetch(apiUrl, {
+    fetch(EXAM_API, {
       method: "POST",
       body: JSON.stringify({
         name: candidateName,
@@ -681,35 +1195,28 @@ export default function App() {
         setIsSubmitting(false);
         setView("result");
       });
-  }, [filteredQuestions, candidateName, candidateEmail, candidateMobile, selectedDept, apiUrl]);
+  }, [filteredQuestions, candidateName, candidateEmail, candidateMobile, selectedDept]);
 
-  // ── Security: Tab switch / copy-paste / PrintScreen — exam ke dauran ──
+  // ── Security listeners ──
   useEffect(() => {
     if (view !== "exam") return;
-
     const handleVisibility = () => {
       if (document.hidden) {
         alert("Security violation detected! Your test has been auto submitted.");
         submitTest();
       }
     };
-
-    const blockCopyPaste = (e) => {
-      e.preventDefault();
-    };
-
+    const blockCopyPaste = (e) => e.preventDefault();
     const handleKey = (e) => {
       if (e.key === "PrintScreen") {
         alert("Screenshot detected! Your test has been terminated.");
         submitTest();
       }
     };
-
     document.addEventListener("visibilitychange", handleVisibility);
     document.addEventListener("copy", blockCopyPaste);
     document.addEventListener("paste", blockCopyPaste);
     document.addEventListener("keydown", handleKey);
-
     return () => {
       document.removeEventListener("visibilitychange", handleVisibility);
       document.removeEventListener("copy", blockCopyPaste);
@@ -753,6 +1260,18 @@ export default function App() {
     setView("login");
   }
 
+  // ── Admin Login Handler ──
+  function handleAdminLogin() {
+    if (adminUser.trim() === ADMIN_USERNAME && adminPass === ADMIN_PASSWORD) {
+      setAdminUser("");
+      setAdminPass("");
+      setView("dashboard");
+    } else {
+      alert("Invalid Credentials");
+    }
+  }
+
+  // ── Dashboard computed values ──
   const departments = [...new Set(questions.map((q) => q.department))];
   const mins = Math.floor(timeLeft / 60);
   const secs = String(timeLeft % 60).padStart(2, "0");
@@ -761,9 +1280,36 @@ export default function App() {
     ? Math.round((answered / filteredQuestions.length) * 100)
     : 0;
 
+  // Filtered dashboard rows
+  const filteredDash = dashboardData.filter((row) => {
+    const q = searchQuery.toLowerCase();
+    const matchSearch =
+      !q ||
+      (row.name || "").toLowerCase().includes(q) ||
+      (row.email || "").toLowerCase().includes(q) ||
+      (row.mobile || "").toLowerCase().includes(q) ||
+      (row.post || "").toLowerCase().includes(q);
+    const matchResult =
+      resultFilter === "ALL" ||
+      (row.result || "").toUpperCase() === resultFilter;
+    return matchSearch && matchResult;
+  });
+
+  const totalPass = dashboardData.filter(
+    (r) => (r.result || "").toUpperCase() === "PASS"
+  ).length;
+  const totalFail = dashboardData.filter(
+    (r) => (r.result || "").toUpperCase() === "FAIL"
+  ).length;
+  const passRate =
+    dashboardData.length > 0
+      ? Math.round((totalPass / dashboardData.length) * 100)
+      : 0;
+
   return (
     <>
       <style>{styles}</style>
+
       {/* ── INSTRUCTIONS POPUP ── */}
       {showInstructions && (
         <div className="popup-overlay">
@@ -827,14 +1373,18 @@ export default function App() {
 
       <div className="portal-wrapper">
 
-        {/* Header */}
-        <div className="portal-header">
-          <div className="badge">🏢 KSK Hiring Portal</div>
-          <h1>Online <span>Examination</span> System</h1>
-          <p>Professional Assessment Platform — Attempt all questions carefully</p>
-        </div>
+        {/* ── HEADER (hidden on full-screen dashboard for cleaner look) ── */}
+        {view !== "dashboard" && (
+          <div className="portal-header">
+            <div className="badge">🏢 OSWAL Hiring Portal</div>
+            <h1>Online <span>Examination</span> System</h1>
+            <p>Professional Assessment Platform — Attempt all questions carefully</p>
+          </div>
+        )}
 
-        {/* ── VIEW 1: LOGIN ── */}
+        {/* ════════════════════════════════════════
+            VIEW 1 — LOGIN
+        ════════════════════════════════════════ */}
         {view === "login" && (
           <>
             <div className="steps">
@@ -890,7 +1440,10 @@ export default function App() {
 
               <div className="field-group">
                 <label>Applied Post</label>
-                <select value={selectedDept} onChange={(e) => handleDepartment(e.target.value)}>
+                <select
+                  value={selectedDept}
+                  onChange={(e) => handleDepartment(e.target.value)}
+                >
                   <option value="">— Select Department / Post —</option>
                   {departments.map((dept, i) => (
                     <option key={i} value={dept}>{dept}</option>
@@ -905,10 +1458,11 @@ export default function App() {
           </>
         )}
 
-        {/* ── VIEW 2: EXAM ── */}
+        {/* ════════════════════════════════════════
+            VIEW 2 — EXAM
+        ════════════════════════════════════════ */}
         {view === "exam" && (
           <div className="exam-wrapper">
-
             <div className="card exam-topbar">
               <div className="topbar-info">
                 <h2>
@@ -923,7 +1477,9 @@ export default function App() {
             </div>
 
             <div>
-              <div className="progress-label">{answered} of {filteredQuestions.length} answered</div>
+              <div className="progress-label">
+                {answered} of {filteredQuestions.length} answered
+              </div>
               <div className="progress-wrap">
                 <div className="progress-fill" style={{ width: `${progressPct}%` }} />
               </div>
@@ -952,7 +1508,11 @@ export default function App() {
               </div>
             ))}
 
-            <button className="btn-submit" onClick={submitTest} disabled={isSubmitting}>
+            <button
+              className="btn-submit"
+              onClick={submitTest}
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "⏳ Submitting..." : "✅ Submit Test"}
             </button>
 
@@ -969,7 +1529,9 @@ export default function App() {
           </div>
         )}
 
-        {/* ── VIEW 3: RESULT ── */}
+        {/* ════════════════════════════════════════
+            VIEW 3 — RESULT
+        ════════════════════════════════════════ */}
         {view === "result" && (
           <div className="exam-wrapper">
             <div className="result-card">
@@ -982,7 +1544,11 @@ export default function App() {
               <div className="result-score">
                 {score} <span>/ {totalQs}</span>
               </div>
-              <div className={`result-verdict ${score >= 6 ? "verdict-pass" : "verdict-fail"}`}>
+              <div
+                className={`result-verdict ${
+                  score >= 6 ? "verdict-pass" : "verdict-fail"
+                }`}
+              >
                 {score >= 6 ? "✓ PASS" : "✗ FAIL"}
               </div>
               <p className="result-msg">
@@ -991,6 +1557,7 @@ export default function App() {
                   : "You did not meet the passing criteria. Better luck next time!"}
               </p>
 
+              {/* New Candidate Button */}
               <button
                 className="btn-start"
                 style={{ marginTop: "28px", maxWidth: "260px" }}
@@ -998,7 +1565,291 @@ export default function App() {
               >
                 👤 New Candidate Login
               </button>
+
+              {/* Divider — subtle separator before admin button */}
+              <div className="btn-divider" style={{ maxWidth: "260px", margin: "16px auto 0" }}>
+                <div className="btn-divider-line" />
+                <span>Admin Access</span>
+                <div className="btn-divider-line" />
+              </div>
+
+              {/* ── NEW: View Dashboard Button ── */}
+              <button
+                className="btn-dashboard"
+                style={{ maxWidth: "260px", margin: "8px auto 0", display: "block" }}
+                onClick={() => setView("adminLogin")}
+              >
+                🔐 View Dashboard
+              </button>
             </div>
+          </div>
+        )}
+
+        {/* ════════════════════════════════════════
+            VIEW 4 — ADMIN LOGIN
+        ════════════════════════════════════════ */}
+        {view === "adminLogin" && (
+          <div className="admin-login-wrap">
+            <div className="card">
+              <div className="admin-login-icon">🔐</div>
+              <h2>Admin Login</h2>
+              <p className="subtitle">Restricted area — authorised personnel only</p>
+
+              <div className="field-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  placeholder="Enter username"
+                  value={adminUser}
+                  autoComplete="off"
+                  onChange={(e) => setAdminUser(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleAdminLogin()}
+                />
+              </div>
+
+              <div className="field-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter password"
+                  value={adminPass}
+                  autoComplete="off"
+                  onChange={(e) => setAdminPass(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleAdminLogin()}
+                />
+              </div>
+
+              <button className="btn-admin-login" onClick={handleAdminLogin}>
+                🔓 Login to Dashboard
+              </button>
+
+              <button
+                className="btn-back-link"
+                onClick={() => setView("result")}
+              >
+                ← Back to Result
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ════════════════════════════════════════
+            VIEW 5 — DASHBOARD
+        ════════════════════════════════════════ */}
+        {view === "dashboard" && (
+          <div className="dashboard-wrapper">
+
+            {/* Dashboard Header */}
+            <div className="dashboard-header">
+              <div className="dashboard-header-left">
+                <div className="badge" style={{ marginBottom: "8px" }}>
+                  🏢 OSWAL Hiring Portal
+                </div>
+                <h2>📊 Admin Dashboard</h2>
+                <p>Candidate results & analytics — real-time data from Google Sheets</p>
+              </div>
+              <div className="dashboard-header-right">
+                <button
+                  className={`btn-refresh ${isRefreshing ? "spinning" : ""}`}
+                  onClick={() => fetchDashboardData(false)}
+                  title="Refresh Data"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                    strokeLinejoin="round">
+                    <polyline points="23 4 23 10 17 10" />
+                    <polyline points="1 20 1 14 7 14" />
+                    <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+                  </svg>
+                  {isRefreshing ? "Refreshing..." : "Refresh"}
+                </button>
+                <button
+                  className="btn-logout"
+                  onClick={resetForNewCandidate}
+                  title="Logout"
+                >
+                  🚪 Logout
+                </button>
+              </div>
+            </div>
+
+            {/* ── STAT CARDS ── */}
+            <div className="stat-grid">
+              <div className="stat-card">
+                <div className="stat-icon total">👥</div>
+                <div className="stat-info">
+                  <div className="stat-num">{dashboardData.length}</div>
+                  <div className="stat-label">Total Candidates</div>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon pass">✅</div>
+                <div className="stat-info">
+                  <div className="stat-num" style={{ color: "#15803d" }}>
+                    {totalPass}
+                  </div>
+                  <div className="stat-label">Total Pass</div>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon fail">❌</div>
+                <div className="stat-info">
+                  <div className="stat-num" style={{ color: "#b91c1c" }}>
+                    {totalFail}
+                  </div>
+                  <div className="stat-label">Total Fail</div>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon rate">📈</div>
+                <div className="stat-info">
+                  <div className="stat-num" style={{ color: "#92400e" }}>
+                    {passRate}%
+                  </div>
+                  <div className="stat-label">Pass Rate</div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── CONTROLS BAR ── */}
+            <div className="controls-bar">
+              {/* Search */}
+              <div className="search-input-wrap">
+                <span className="search-icon">🔍</span>
+                <input
+                  type="text"
+                  placeholder="Search by name, email, mobile or department..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              {/* Result Filter */}
+              <div className="filter-group">
+                <button
+                  className={`filter-btn ${resultFilter === "ALL" ? "active-all" : ""}`}
+                  onClick={() => setResultFilter("ALL")}
+                >
+                  All ({dashboardData.length})
+                </button>
+                <button
+                  className={`filter-btn ${resultFilter === "PASS" ? "active-pass" : ""}`}
+                  onClick={() => setResultFilter("PASS")}
+                >
+                  ✅ Pass ({totalPass})
+                </button>
+                <button
+                  className={`filter-btn ${resultFilter === "FAIL" ? "active-fail" : ""}`}
+                  onClick={() => setResultFilter("FAIL")}
+                >
+                  ❌ Fail ({totalFail})
+                </button>
+              </div>
+            </div>
+
+            {/* ── DATA TABLE ── */}
+            <div className="table-wrap">
+              <div className="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Candidate Name</th>
+                      <th>Email</th>
+                      <th>Mobile</th>
+                      <th>Applied Post</th>
+                      <th>Score</th>
+                      <th>Result</th>
+                      <th>Date / Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dashLoading ? (
+                      <tr className="loading-row">
+                        <td colSpan="8">
+                          <div className="dash-spinner" />
+                          <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, color: "#6b7280" }}>
+                            Loading candidates...
+                          </div>
+                        </td>
+                      </tr>
+                    ) : filteredDash.length === 0 ? (
+                      <tr>
+                        <td colSpan="8">
+                          <div className="no-data">
+                            <div className="no-data-icon">🗂️</div>
+                            <p>No records found</p>
+                            <span>
+                              {searchQuery
+                                ? "Try a different search term or clear filters."
+                                : "No candidates have attempted the test yet."}
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredDash.map((row, i) => {
+                        const isPass = (row.result || "").toUpperCase() === "PASS";
+                        return (
+                          <tr key={i}>
+                            <td style={{ color: "#9ca3af", fontWeight: 700, fontSize: "12px" }}>
+                              {i + 1}
+                            </td>
+                            <td className="td-name">{row.name || "—"}</td>
+                            <td className="td-email">{row.email || "—"}</td>
+                            <td className="td-mobile">{row.mobile || "—"}</td>
+                            <td>
+                              <span className="post-pill">{row.post || "—"}</span>
+                            </td>
+                            <td>
+                              <span className="score-pill">{row.score || "—"}</span>
+                            </td>
+                            <td>
+                              <span className={`result-badge ${isPass ? "pass" : "fail"}`}>
+                                {isPass ? "✓ PASS" : "✗ FAIL"}
+                              </span>
+                            </td>
+                            <td className="td-time">{row.timestamp || "—"}</td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Table Footer */}
+              {!dashLoading && filteredDash.length > 0 && (
+                <div className="table-footer">
+                  <span>
+                    Showing <strong>{filteredDash.length}</strong> of{" "}
+                    <strong>{dashboardData.length}</strong> records
+                  </span>
+                  <span>
+                    {resultFilter !== "ALL" && (
+                      <button
+                        style={{
+                          background: "none",
+                          border: "none",
+                          color: "#4f8ef7",
+                          cursor: "pointer",
+                          fontWeight: 600,
+                          fontSize: "12px",
+                          fontFamily: "'Poppins', sans-serif",
+                        }}
+                        onClick={() => {
+                          setResultFilter("ALL");
+                          setSearchQuery("");
+                        }}
+                      >
+                        × Clear filters
+                      </button>
+                    )}
+                  </span>
+                </div>
+              )}
+            </div>
+
           </div>
         )}
 
