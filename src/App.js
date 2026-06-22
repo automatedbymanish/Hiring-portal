@@ -1078,7 +1078,7 @@ const EXAM_API =
   "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec";
 
 const RESULTS_API =
-  "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec?action=getResults";
+  "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec";
 // ↑ Replace this URL with your NEW Apps Script deployment that handles ?action=getResults
 // See the Apps Script code provided below the component.
 
