@@ -1249,6 +1249,11 @@ const styles = `
     height: 40px;
     width: auto;
     object-fit: contain;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 3px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   .branding-text {
     font-family: 'Nunito', sans-serif;
@@ -1339,6 +1344,11 @@ const styles = `
     height: 50px;
     width: auto;
     object-fit: contain;
+    border-radius: 14px;
+    background: #ffffff;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
   .company-logo-text {
     font-family: 'Nunito', sans-serif;
@@ -1365,6 +1375,11 @@ const styles = `
     height: 40px;
     width: auto;
     object-fit: contain;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 3px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
   .badge-text {
     font-family: 'Nunito', sans-serif;
