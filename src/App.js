@@ -1337,7 +1337,7 @@ const styles = `
     margin-bottom: 24px;
   }
   .company-logo {
-    height: 48px;
+    height: 50px;
     width: auto;
     object-fit: contain;
   }
