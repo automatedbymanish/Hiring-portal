@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import logo from "./logo.svg";
 import loginBg from "./assets/login-bg.avif";
 import oswalLogo from "./assets/oswal-logo.png";
 
