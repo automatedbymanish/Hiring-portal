@@ -2004,11 +2004,14 @@ export default function App() {
                         const isPass =
                           (row[5] || "").toUpperCase() === "PASS";
 
-                        const emailSubject = "Application Update";
-                        const emailBody = `Dear ${row[0] || "Candidate"},\n\nThank you for participating in the assessment process with OSWAL Hiring Portal.\n\nYour application has been successfully reviewed. Our HR team will contact you regarding the next steps if your profile matches our current requirements.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
-                        const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(row[1] || "")}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                        const candidateName = (row[0] || "").trim();
+                        const candidateEmail = (row[1] || "").trim().replace(/[\r\n]/g, "").replace(/\s+/g, "");
 
-                        const waMessage = `Dear ${row[0] || "Candidate"},\n\nThank you for appearing in the assessment conducted by OSWAL Hiring Portal.\n\nYour application has been received successfully. Our HR team will review your profile and contact you regarding further updates if shortlisted.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
+                        const emailSubject = "Application Update";
+                        const emailBody = `Dear ${candidateName},\n\nThank you for participating in the assessment process with OSWAL Hiring Portal.\n\nYour application has been successfully reviewed. Our HR team will contact you regarding the next steps if your profile matches our current requirements.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
+                        const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(candidateEmail)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+                        const waMessage = `Dear ${candidateName},\n\nThank you for appearing in the assessment conducted by OSWAL Hiring Portal.\n\nYour application has been received successfully. Our HR team will review your profile and contact you regarding further updates if shortlisted.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
                         const cleanedMobile = (row[2] || "").replace(/\D/g, "");
                         const waNumber = cleanedMobile.length === 10 ? `91${cleanedMobile}` : cleanedMobile;
                         const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
@@ -2035,6 +2038,9 @@ export default function App() {
                                   rel="noopener noreferrer"
                                   className="action-btn email-btn"
                                   title="Send Email"
+                                  onClick={() => {
+                                    console.log("Gmail Action Clicked! Recipient:", candidateEmail, "URL:", emailUrl);
+                                  }}
                                 >
                                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
