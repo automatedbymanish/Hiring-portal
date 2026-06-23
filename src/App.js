@@ -1,4 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
+import logo from "./logo.svg";
+import loginBg from "./assets/login-bg.jpg";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
@@ -1187,6 +1189,255 @@ const styles = `
   @media (max-width: 480px) {
     .stat-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── SPLIT SCREEN LAYOUT ── */
+  .login-split-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #ffffff 0%, #faf6e8 50%, #f7f0d3 100%);
+  }
+
+  /* Left Section (60%) */
+  .login-left-section {
+    position: relative;
+    width: 60%;
+    background-image: url(${loginBg});
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #ffffff;
+    overflow: hidden;
+  }
+  .login-left-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+  }
+  .left-content-panel {
+    position: relative;
+    z-index: 2;
+    max-width: 580px;
+    width: 100%;
+  }
+  .left-content-panel .glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+  .left-tag {
+    display: inline-block;
+    color: #ffd54f;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    background: rgba(244, 180, 0, 0.15);
+    padding: 6px 14px;
+    border-radius: 50px;
+    border: 1px solid rgba(244, 180, 0, 0.3);
+  }
+  .left-content-panel h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+  .left-content-panel h2 span.highlight-gold {
+    color: #ffd54f;
+    background: linear-gradient(90deg, #ffd54f, #f4b400);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .left-sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 28px;
+    animation: fadeInUp 1s ease-out;
+  }
+  .left-quote {
+    position: relative;
+    border-left: 3px solid #ffd54f;
+    padding-left: 20px;
+    animation: fadeInUp 1.2s ease-out;
+  }
+  .left-quote p {
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Right Section (40%) */
+  .login-right-section {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-y: auto;
+  }
+  
+  /* White glass card styling */
+  .login-glass-card {
+    width: 100%;
+    max-width: 440px;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(244, 180, 0, 0.3) !important; /* Thin gold border */
+    border-radius: 24px !important;
+    box-shadow: 0 20px 50px rgba(244, 180, 0, 0.06), 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+    padding: 40px 32px !important;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Company Logo */
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .company-logo {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 2px 4px rgba(79, 142, 247, 0.15));
+  }
+  .company-logo-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #1a1d3b;
+  }
+  .company-logo-text::after {
+    content: ' Hiring';
+    color: #f4b400;
+    font-weight: 700;
+  }
+  
+  .welcome-heading {
+    font-family: 'Nunito', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #1a1d3b;
+    margin-bottom: 6px;
+    text-align: left !important;
+  }
+  .welcome-subtitle {
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 24px;
+    text-align: left !important;
+  }
+
+  .steps-wrapper {
+    margin-bottom: 24px;
+  }
+  .steps-wrapper .steps {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 0;
+    align-items: center;
+  }
+
+  /* Gold gradient button */
+  .btn-gold-grad {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #F4B400 0%, #FFD54F 100%) !important;
+    color: #1a1d3b !important; /* Dark text for perfect contrast on gold button */
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(244, 180, 0, 0.25);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-gold-grad:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(244, 180, 0, 0.4), 0 0 15px rgba(255, 213, 79, 0.3);
+  }
+  .btn-gold-grad:active {
+    transform: translateY(-1px);
+  }
+
+  /* RESPONSIVE MEDIA QUERIES */
+  @media (max-width: 1024px) {
+    .login-left-section {
+      width: 50%;
+    }
+    .login-right-section {
+      width: 50%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .login-left-section {
+      width: 40%;
+      padding: 20px;
+    }
+    .login-right-section {
+      width: 60%;
+    }
+    .left-content-panel .glass-panel {
+      padding: 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .login-split-container {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .login-left-section {
+      display: none; /* Hide image section */
+    }
+    .login-right-section {
+      width: 100%;
+      padding: 0;
+    }
+    .login-glass-card {
+      padding: 30px 20px !important;
+    }
+  }
 `;
 
 // ─────────────────────────────────────────────
@@ -1636,103 +1887,166 @@ export default function App() {
         </div>
       )}
 
-      <div className="portal-wrapper">
-
-        {/* Header — hidden on dashboard for cleaner look */}
-        {view !== "dashboard" && (
-          <div className="portal-header">
-            <div className="badge">🏢 OSWAL Hiring Portal</div>
-            <h1>Online <span>Examination</span> System</h1>
-            <p>Professional Assessment Platform — Attempt all questions carefully</p>
+      {(view === "login" || view === "adminLogin") ? (
+        <div className="login-split-container">
+          {/* Left Section (60%) */}
+          <div className="login-left-section">
+            <div className="left-overlay" />
+            <div className="left-content-panel">
+              <div className="glass-panel">
+                <span className="left-tag">🏢 OSWAL Hiring Portal</span>
+                <h2>Great People Build <span className="highlight-gold">Great Companies.</span></h2>
+                <p className="left-sub">At OSWAL, we believe talent, dedication and innovation drive success.</p>
+                <div className="left-quote">
+                  <p>"Success is not built by one person. It is built by great teams."</p>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
 
-        {/* ════════════════════════════════════════
-            VIEW 1 — LOGIN
-        ════════════════════════════════════════ */}
-        {view === "login" && (
-          <>
-            <div className="steps">
-              <div className="step active">
-                <div className="step-dot">1</div>
-                <span>Fill Details</span>
-              </div>
-              <div className="step-line" />
-              <div className="step">
-                <div className="step-dot">2</div>
-                <span>Attempt Test</span>
-              </div>
-              <div className="step-line" />
-              <div className="step">
-                <div className="step-dot">3</div>
-                <span>View Result</span>
-              </div>
-            </div>
+          {/* Right Section (40%) */}
+          <div className="login-right-section">
+            {view === "login" && (
+              <div className="card form-card login-glass-card">
+                <div className="logo-container">
+                  <img src={logo} className="company-logo" alt="OSWAL Logo" />
+                  <span className="company-logo-text">OSWAL</span>
+                </div>
+                <h2 className="welcome-heading">Welcome Back</h2>
+                <p className="welcome-subtitle">Please enter your candidate details to start your assessment</p>
 
-            <div className="card form-card">
-              <h2>Candidate Details</h2>
-              <p className="subtitle">Fill in your information to begin the test</p>
+                <div className="steps-wrapper">
+                  <div className="steps">
+                    <div className="step active">
+                      <div className="step-dot">1</div>
+                      <span>Details</span>
+                    </div>
+                    <div className="step-line" />
+                    <div className="step">
+                      <div className="step-dot">2</div>
+                      <span>Test</span>
+                    </div>
+                    <div className="step-line" />
+                    <div className="step">
+                      <div className="step-dot">3</div>
+                      <span>Result</span>
+                    </div>
+                  </div>
+                </div>
 
-              {/* Full Name */}
-              <div className="field-group">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Ramesh Kumar"
-                  value={candidateName}
-                  onChange={(e) => setCandidateName(e.target.value)}
-                />
+                {/* Full Name */}
+                <div className="field-group">
+                  <label>Full Name</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Ramesh Kumar"
+                    value={candidateName}
+                    onChange={(e) => setCandidateName(e.target.value)}
+                  />
+                </div>
+
+                {/* Email */}
+                <div className="field-group">
+                  <label>Email Address</label>
+                  <input
+                    type="email"
+                    placeholder="e.g. ramesh@email.com"
+                    value={candidateEmail}
+                    onChange={(e) => setCandidateEmail(e.target.value)}
+                  />
+                </div>
+
+                {/* Mobile */}
+                <div className="field-group">
+                  <label>Mobile Number</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 9876543210"
+                    value={candidateMobile}
+                    onChange={(e) => setCandidateMobile(e.target.value)}
+                  />
+                </div>
+
+                {/* Applied Post */}
+                <div className="field-group">
+                  <label>Applied Post</label>
+                  <select
+                    value={selectedDept}
+                    onChange={(e) => handleDepartment(e.target.value)}
+                  >
+                    <option value="">— Select Department / Post —</option>
+                    {departments.map((dept, i) => (
+                      <option key={i} value={dept}>
+                        {dept}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <button className="btn-gold-grad" onClick={startExam}>
+                  🚀 Start Test
+                </button>
               </div>
+            )}
 
-              {/* Email */}
-              <div className="field-group">
-                <label>Email Address</label>
-                <input
-                  type="email"
-                  placeholder="e.g. ramesh@email.com"
-                  value={candidateEmail}
-                  onChange={(e) => setCandidateEmail(e.target.value)}
-                />
-              </div>
+            {view === "adminLogin" && (
+              <div className="admin-login-wrap card login-glass-card">
+                <div className="logo-container">
+                  <img src={logo} className="company-logo" alt="OSWAL Logo" />
+                  <span className="company-logo-text">OSWAL</span>
+                </div>
+                
+                <h2 className="welcome-heading">Welcome Back</h2>
+                <p className="welcome-subtitle">Administrative Control Panel Access</p>
 
-              {/* Mobile */}
-              <div className="field-group">
-                <label>Mobile Number</label>
-                <input
-                  type="text"
-                  placeholder="e.g. 9876543210"
-                  value={candidateMobile}
-                  onChange={(e) => setCandidateMobile(e.target.value)}
-                />
-              </div>
+                <div className="field-group">
+                  <label>Username</label>
+                  <input
+                    type="text"
+                    placeholder="Enter username"
+                    value={adminUser}
+                    autoComplete="off"
+                    onChange={(e) => setAdminUser(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleAdminLogin()}
+                  />
+                </div>
 
-              {/* ── Applied Post Dropdown ──
-                  This is the ORIGINAL dropdown, untouched.
-                  It reads from the `departments` array which is
-                  derived from `questions` state populated by EXAM_API fetch.
-                  Do NOT convert this to a text input.
-              ── */}
-              <div className="field-group">
-                <label>Applied Post</label>
-                <select
-                  value={selectedDept}
-                  onChange={(e) => handleDepartment(e.target.value)}
+                <div className="field-group">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    placeholder="Enter password"
+                    value={adminPass}
+                    autoComplete="off"
+                    onChange={(e) => setAdminPass(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleAdminLogin()}
+                  />
+                </div>
+
+                <button className="btn-gold-grad" onClick={handleAdminLogin}>
+                  🔓 Login to Dashboard
+                </button>
+
+                <button
+                  className="btn-back-link"
+                  onClick={() => setView("result")}
                 >
-                  <option value="">— Select Department / Post —</option>
-                  {departments.map((dept, i) => (
-                    <option key={i} value={dept}>
-                      {dept}
-                    </option>
-                  ))}
-                </select>
+                  ← Back to Result
+                </button>
               </div>
-
-              <button className="btn-start" onClick={startExam}>
-                🚀 Start Test
-              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="portal-wrapper">
+          {/* Header — hidden on dashboard for cleaner look */}
+          {view !== "dashboard" && (
+            <div className="portal-header">
+              <div className="badge">🏢 OSWAL Hiring Portal</div>
+              <h1>Online <span>Examination</span> System</h1>
+              <p>Professional Assessment Platform — Attempt all questions carefully</p>
             </div>
-          </>
-        )}
+          )}
 
         {/* ════════════════════════════════════════
             VIEW 2 — EXAM
@@ -1879,55 +2193,7 @@ export default function App() {
           </div>
         )}
 
-        {/* ════════════════════════════════════════
-            VIEW 4 — ADMIN LOGIN
-        ════════════════════════════════════════ */}
-        {view === "adminLogin" && (
-          <div className="admin-login-wrap">
-            <div className="card">
-              <div className="admin-login-icon">🔐</div>
-              <h2>Admin Login</h2>
-              <p className="subtitle">
-                Restricted area — authorised personnel only
-              </p>
-
-              <div className="field-group">
-                <label>Username</label>
-                <input
-                  type="text"
-                  placeholder="Enter username"
-                  value={adminUser}
-                  autoComplete="off"
-                  onChange={(e) => setAdminUser(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleAdminLogin()}
-                />
-              </div>
-
-              <div className="field-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  placeholder="Enter password"
-                  value={adminPass}
-                  autoComplete="off"
-                  onChange={(e) => setAdminPass(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleAdminLogin()}
-                />
-              </div>
-
-              <button className="btn-admin-login" onClick={handleAdminLogin}>
-                🔓 Login to Dashboard
-              </button>
-
-              <button
-                className="btn-back-link"
-                onClick={() => setView("result")}
-              >
-                ← Back to Result
-              </button>
-            </div>
-          </div>
-        )}
+        {/* Admin Login View is handled above in the split screen layout */}
 
         {/* ════════════════════════════════════════
             VIEW 5 — DASHBOARD
@@ -2204,6 +2470,7 @@ export default function App() {
         )}
 
       </div>
+      )}
     </>
   );
 }
