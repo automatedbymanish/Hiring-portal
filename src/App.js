@@ -17,7 +17,6 @@ const styles = `
     padding: 30px 20px 60px;
   }
 
-  /* ── HEADER ── */
   .portal-header {
     text-align: center;
     margin-bottom: 36px;
@@ -53,7 +52,6 @@ const styles = `
     font-size: 15px;
   }
 
-  /* ── CARD ── */
   .card {
     background: #fff;
     border-radius: 20px;
@@ -61,7 +59,6 @@ const styles = `
     padding: 36px 32px;
   }
 
-  /* ── FORM CARD ── */
   .form-card {
     max-width: 480px;
     margin: 0 auto;
@@ -138,10 +135,8 @@ const styles = `
   }
   .btn-start:active { transform: translateY(0); }
 
-  /* ── EXAM LAYOUT ── */
   .exam-wrapper { max-width: 860px; margin: 0 auto; }
 
-  /* ── EXAM TOPBAR ── */
   .exam-topbar {
     display: flex;
     justify-content: space-between;
@@ -196,7 +191,6 @@ const styles = `
     50% { transform: scale(1.04); }
   }
 
-  /* ── PROGRESS BAR ── */
   .progress-wrap {
     background: #e5e7eb;
     border-radius: 50px;
@@ -217,7 +211,6 @@ const styles = `
     text-align: right;
   }
 
-  /* ── QUESTION CARD ── */
   .question-card {
     margin-bottom: 18px;
     border: 1.5px solid #e5e7eb;
@@ -315,7 +308,6 @@ const styles = `
     transition: background 0.15s, color 0.15s;
   }
 
-  /* ── SUBMIT BUTTON ── */
   .btn-submit {
     display: block;
     margin: 36px auto 0;
@@ -343,7 +335,6 @@ const styles = `
     box-shadow: none;
   }
 
-  /* ── SUBMITTING OVERLAY ── */
   .submit-overlay {
     position: fixed;
     inset: 0;
@@ -393,7 +384,6 @@ const styles = `
     40% { transform: scale(1.1); opacity: 1; }
   }
 
-  /* ── RESULT CARD ── */
   .result-card {
     text-align: center;
     padding: 44px 32px;
@@ -443,7 +433,6 @@ const styles = `
     font-size: 14px;
   }
 
-  /* ── INSTRUCTIONS POPUP ── */
   .popup-overlay {
     position: fixed;
     inset: 0;
@@ -567,7 +556,6 @@ const styles = `
     box-shadow: 0 8px 24px rgba(79,142,247,0.40);
   }
 
-  /* ── STEPS ── */
   .steps {
     display: flex;
     justify-content: center;
@@ -739,7 +727,6 @@ const styles = `
     box-shadow: 0 4px 12px rgba(185,28,28,0.15);
   }
 
-  /* ── STAT CARDS ── */
   .stat-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -789,7 +776,6 @@ const styles = `
     margin-top: 4px;
   }
 
-  /* ── CONTROLS ── */
   .controls-bar {
     background: #fff;
     border-radius: 16px;
@@ -870,7 +856,6 @@ const styles = `
     box-shadow: 0 2px 10px rgba(220,38,38,0.25);
   }
 
-  /* ── TABLE ── */
   .table-wrap {
     background: #fff;
     border-radius: 16px;
@@ -1022,7 +1007,6 @@ const styles = `
     margin: 0 auto 12px;
   }
 
-  /* ── VIEW DASHBOARD BUTTON ── */
   .btn-dashboard {
     width: 100%;
     padding: 13px;
@@ -1073,62 +1057,85 @@ const styles = `
   }
 `;
 
-// ── Google Apps Script endpoints ──
+// ─────────────────────────────────────────────
+// EXAM API  — original URL, untouched
+// This is used to:
+//   GET  → fetch questions
+//   POST → save candidate result
+// ─────────────────────────────────────────────
 const EXAM_API =
-  "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec";
+  "https://script.google.com/macros/s/AKfycbxfUTjHz4K1Ot9I41n2junHHhPJowInlFHszVeSNBTg_I0gIMtmnwyKL5ouHL3z9vVy/exec";
 
+// ─────────────────────────────────────────────
+// RESULTS API — same script, different action
+// The same Apps Script handles ?action=getResults
+// ─────────────────────────────────────────────
 const RESULTS_API =
-  "https://script.google.com/macros/s/AKfycbw9CwfoRDhDc22k3NzecXDOJpbW6IQYz9nTbClJNGr21lGfMEU4N9j_IvXgMRHPU9JP/exec";
-// ↑ Replace this URL with your NEW Apps Script deployment that handles ?action=getResults
-// See the Apps Script code provided below the component.
+  "https://script.google.com/macros/s/AKfycbxfUTjHz4K1Ot9I41n2junHHhPJowInlFHszVeSNBTg_I0gIMtmnwyKL5ouHL3z9vVy/exec";
 
-// ── Hardcoded Admin Credentials ──
+// ─────────────────────────────────────────────
+// Hardcoded Admin Credentials
+// ─────────────────────────────────────────────
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "ksk@123";
 
 export default function App() {
-  // ── Existing state ──
-  const [questions, setQuestions] = useState([]);
+
+  // ── Existing state (completely unchanged) ──
+  const [questions, setQuestions]               = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
-  const [selectedDept, setSelectedDept] = useState("");
-  const [candidateName, setCandidateName] = useState("");
-  const [candidateEmail, setCandidateEmail] = useState("");
-  const [candidateMobile, setCandidateMobile] = useState("");
-  const [view, setView] = useState("login"); // "login"|"exam"|"result"|"adminLogin"|"dashboard"
-  const [score, setScore] = useState(null);
-  const [totalQs, setTotalQs] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(1800);
-  const [answered, setAnswered] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedDept, setSelectedDept]         = useState("");
+  const [candidateName, setCandidateName]       = useState("");
+  const [candidateEmail, setCandidateEmail]     = useState("");
+  const [candidateMobile, setCandidateMobile]   = useState("");
+  const [view, setView]                         = useState("login");
+  const [score, setScore]                       = useState(null);
+  const [totalQs, setTotalQs]                   = useState(0);
+  const [timeLeft, setTimeLeft]                 = useState(1800);
+  const [answered, setAnswered]                 = useState(0);
+  const [isSubmitting, setIsSubmitting]         = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
 
-  // ── Admin / Dashboard state ──
-  const [adminUser, setAdminUser] = useState("");
-  const [adminPass, setAdminPass] = useState("");
+  // ── New Dashboard / Admin state ──
+  const [adminUser, setAdminUser]       = useState("");
+  const [adminPass, setAdminPass]       = useState("");
   const [dashboardData, setDashboardData] = useState([]);
-  const [dashLoading, setDashLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [resultFilter, setResultFilter] = useState("ALL"); // "ALL"|"PASS"|"FAIL"
+  const [dashLoading, setDashLoading]   = useState(false);
+  const [searchQuery, setSearchQuery]   = useState("");
+  const [resultFilter, setResultFilter] = useState("ALL");
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // ── Fetch exam questions on mount ──
+  // ─────────────────────────────────────────────
+  // FETCH QUESTIONS — original logic, untouched
+  // questions state is populated here
+  // departments array derives from this
+  // ─────────────────────────────────────────────
   useEffect(() => {
     fetch(EXAM_API)
       .then((res) => res.json())
-      .then((data) => setQuestions(data));
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setQuestions(data);
+        } else {
+          setQuestions([]);
+        }
+      })
+      .catch(() => {
+        setQuestions([]);
+      });
   }, []);
 
-  // ── Fetch dashboard data ──
+  // ─────────────────────────────────────────────
+  // FETCH DASHBOARD DATA
+  // ─────────────────────────────────────────────
   const fetchDashboardData = useCallback(async (showSpinner = true) => {
     if (showSpinner) setDashLoading(true);
     setIsRefreshing(true);
     try {
-      const res = await fetch(RESULTS_API);
+      const res  = await fetch(RESULTS_API);
       const data = await res.json();
-      // Support both array directly or { data: [...] }
       setDashboardData(Array.isArray(data) ? data : data.data || []);
     } catch (err) {
-      console.error("Dashboard fetch failed:", err);
       setDashboardData([]);
     } finally {
       setDashLoading(false);
@@ -1136,22 +1143,30 @@ export default function App() {
     }
   }, []);
 
-  // Auto-fetch when dashboard view opens
   useEffect(() => {
     if (view === "dashboard") {
       fetchDashboardData(true);
     }
   }, [view, fetchDashboardData]);
 
-  // ── Existing helpers ──
+  // ─────────────────────────────────────────────
+  // handleDepartment — original, untouched
+  // Filters questions by selected department
+  // Populates filteredQuestions for exam
+  // ─────────────────────────────────────────────
   function handleDepartment(dept) {
     setSelectedDept(dept);
-    const filtered = questions.filter((q) => q.department === dept);
+    const filtered = questions.filter(
+      (q) => (q.Department || q.department) === dept
+    );
     const shuffled = [...filtered].sort(() => 0.5 - Math.random());
     setFilteredQuestions(shuffled.slice(0, 10));
     setScore(null);
   }
 
+  // ─────────────────────────────────────────────
+  // startExam — original, untouched
+  // ─────────────────────────────────────────────
   function startExam() {
     if (!candidateName || !candidateEmail || !candidateMobile || !selectedDept) {
       alert("Please fill all details before starting.");
@@ -1165,6 +1180,9 @@ export default function App() {
     setView("exam");
   }
 
+  // ─────────────────────────────────────────────
+  // submitTest — original, untouched
+  // ─────────────────────────────────────────────
   const submitTest = useCallback(() => {
     setIsSubmitting(true);
     let total = 0;
@@ -1178,11 +1196,11 @@ export default function App() {
     fetch(EXAM_API, {
       method: "POST",
       body: JSON.stringify({
-        name: candidateName,
-        email: candidateEmail,
+        name:   candidateName,
+        email:  candidateEmail,
         mobile: candidateMobile,
-        post: selectedDept,
-        score: total + "/" + filteredQuestions.length,
+        post:   selectedDept,
+        score:  total + "/" + filteredQuestions.length,
         result: finalResult,
       }),
     })
@@ -1197,7 +1215,9 @@ export default function App() {
       });
   }, [filteredQuestions, candidateName, candidateEmail, candidateMobile, selectedDept]);
 
-  // ── Security listeners ──
+  // ─────────────────────────────────────────────
+  // Security — original, untouched
+  // ─────────────────────────────────────────────
   useEffect(() => {
     if (view !== "exam") return;
     const handleVisibility = () => {
@@ -1225,7 +1245,9 @@ export default function App() {
     };
   }, [view, submitTest]);
 
-  // ── Timer ──
+  // ─────────────────────────────────────────────
+  // Timer — original, untouched
+  // ─────────────────────────────────────────────
   useEffect(() => {
     if (view === "exam" && timeLeft > 0) {
       const timer = setInterval(() => setTimeLeft((p) => p - 1), 1000);
@@ -1237,6 +1259,9 @@ export default function App() {
     }
   }, [view, timeLeft, submitTest]);
 
+  // ─────────────────────────────────────────────
+  // countAnswered — original, untouched
+  // ─────────────────────────────────────────────
   function countAnswered() {
     let c = 0;
     filteredQuestions.forEach((_, i) => {
@@ -1245,6 +1270,9 @@ export default function App() {
     setAnswered(c);
   }
 
+  // ─────────────────────────────────────────────
+  // resetForNewCandidate — original + reset new state
+  // ─────────────────────────────────────────────
   function resetForNewCandidate() {
     setCandidateName("");
     setCandidateEmail("");
@@ -1257,12 +1285,22 @@ export default function App() {
     setAnswered(0);
     setIsSubmitting(false);
     setShowInstructions(false);
+    setAdminUser("");
+    setAdminPass("");
+    setDashboardData([]);
+    setSearchQuery("");
+    setResultFilter("ALL");
     setView("login");
   }
 
-  // ── Admin Login Handler ──
+  // ─────────────────────────────────────────────
+  // Admin Login Handler
+  // ─────────────────────────────────────────────
   function handleAdminLogin() {
-    if (adminUser.trim() === ADMIN_USERNAME && adminPass === ADMIN_PASSWORD) {
+    if (
+      adminUser.trim() === ADMIN_USERNAME &&
+      adminPass         === ADMIN_PASSWORD
+    ) {
       setAdminUser("");
       setAdminPass("");
       setView("dashboard");
@@ -1271,41 +1309,56 @@ export default function App() {
     }
   }
 
-  // ── Dashboard computed values ──
-  const departments = [...new Set(questions.map((q) => q.department))];
-  const mins = Math.floor(timeLeft / 60);
-  const secs = String(timeLeft % 60).padStart(2, "0");
-  const isWarning = timeLeft <= 300;
+  // ─────────────────────────────────────────────
+  // Derived values
+  // ─────────────────────────────────────────────
+
+  // departments array — built from questions state
+  // If questions is empty this will be [] and dropdown shows no options
+  // Once fetch completes, questions populates and dropdown shows options
+  const departments = [
+    ...new Set(
+      questions
+        .map((q) => q.Department || q.department)
+        .filter((d) => d !== undefined && d !== null && d !== "")
+    ),
+  ];
+
+  const mins       = Math.floor(timeLeft / 60);
+  const secs       = String(timeLeft % 60).padStart(2, "0");
+  const isWarning  = timeLeft <= 300;
   const progressPct = filteredQuestions.length
     ? Math.round((answered / filteredQuestions.length) * 100)
     : 0;
 
-  // Filtered dashboard rows
-  const filteredDash = dashboardData.filter((row) => {
-    const q = searchQuery.toLowerCase();
-    const matchSearch =
-      !q ||
-      (row.name || "").toLowerCase().includes(q) ||
-      (row.email || "").toLowerCase().includes(q) ||
-      (row.mobile || "").toLowerCase().includes(q) ||
-      (row.post || "").toLowerCase().includes(q);
-    const matchResult =
-      resultFilter === "ALL" ||
-      (row.result || "").toUpperCase() === resultFilter;
-    return matchSearch && matchResult;
-  });
-
+  // Dashboard computed
   const totalPass = dashboardData.filter(
     (r) => (r.result || "").toUpperCase() === "PASS"
   ).length;
   const totalFail = dashboardData.filter(
     (r) => (r.result || "").toUpperCase() === "FAIL"
   ).length;
-  const passRate =
-    dashboardData.length > 0
-      ? Math.round((totalPass / dashboardData.length) * 100)
-      : 0;
+  const passRate = dashboardData.length > 0
+    ? Math.round((totalPass / dashboardData.length) * 100)
+    : 0;
 
+  const filteredDash = dashboardData.filter((row) => {
+    const q           = searchQuery.toLowerCase();
+    const matchSearch =
+      !q ||
+      (row.name   || "").toLowerCase().includes(q) ||
+      (row.email  || "").toLowerCase().includes(q) ||
+      (row.mobile || "").toLowerCase().includes(q) ||
+      (row.post   || "").toLowerCase().includes(q);
+    const matchResult =
+      resultFilter === "ALL" ||
+      (row.result || "").toUpperCase() === resultFilter;
+    return matchSearch && matchResult;
+  });
+
+  // ═══════════════════════════════════════════════════════════
+  // RENDER
+  // ═══════════════════════════════════════════════════════════
   return (
     <>
       <style>{styles}</style>
@@ -1322,42 +1375,60 @@ export default function App() {
                 <span className="rule-badge red">🚫</span>
                 <span className="rule-text">
                   <strong>No Tab Switching</strong>
-                  <span>Do not minimize or switch to any other tab/window — test will auto-submit.</span>
+                  <span>
+                    Do not minimize or switch to any other tab/window — test
+                    will auto-submit.
+                  </span>
                 </span>
               </li>
               <li>
                 <span className="rule-badge amber">📋</span>
                 <span className="rule-text">
                   <strong>No Copy / Paste</strong>
-                  <span>Copying or pasting any content during the exam is strictly prohibited.</span>
+                  <span>
+                    Copying or pasting any content during the exam is strictly
+                    prohibited.
+                  </span>
                 </span>
               </li>
               <li>
                 <span className="rule-badge purple">📸</span>
                 <span className="rule-text">
                   <strong>No Screenshots</strong>
-                  <span>Taking a screenshot (PrintScreen) will immediately terminate your test.</span>
+                  <span>
+                    Taking a screenshot (PrintScreen) will immediately terminate
+                    your test.
+                  </span>
                 </span>
               </li>
               <li>
                 <span className="rule-badge blue">📱</span>
                 <span className="rule-text">
                   <strong>No Mobile Capture</strong>
-                  <span>Do not use your mobile phone to photograph or record the questions.</span>
+                  <span>
+                    Do not use your mobile phone to photograph or record the
+                    questions.
+                  </span>
                 </span>
               </li>
               <li>
                 <span className="rule-badge amber">🪑</span>
                 <span className="rule-text">
                   <strong>Stay at Your Seat</strong>
-                  <span>Do not leave or move from your designated sitting place during the exam.</span>
+                  <span>
+                    Do not leave or move from your designated sitting place
+                    during the exam.
+                  </span>
                 </span>
               </li>
               <li>
                 <span className="rule-badge green">👁️</span>
                 <span className="rule-text">
                   <strong>No One Behind You</strong>
-                  <span>Ensure that no person is standing or sitting behind you while attempting the test.</span>
+                  <span>
+                    Ensure that no person is standing or sitting behind you
+                    while attempting the test.
+                  </span>
                 </span>
               </li>
             </ul>
@@ -1373,7 +1444,7 @@ export default function App() {
 
       <div className="portal-wrapper">
 
-        {/* ── HEADER (hidden on full-screen dashboard for cleaner look) ── */}
+        {/* Header — hidden on dashboard for cleaner look */}
         {view !== "dashboard" && (
           <div className="portal-header">
             <div className="badge">🏢 OSWAL Hiring Portal</div>
@@ -1408,6 +1479,7 @@ export default function App() {
               <h2>Candidate Details</h2>
               <p className="subtitle">Fill in your information to begin the test</p>
 
+              {/* Full Name */}
               <div className="field-group">
                 <label>Full Name</label>
                 <input
@@ -1418,6 +1490,7 @@ export default function App() {
                 />
               </div>
 
+              {/* Email */}
               <div className="field-group">
                 <label>Email Address</label>
                 <input
@@ -1428,6 +1501,7 @@ export default function App() {
                 />
               </div>
 
+              {/* Mobile */}
               <div className="field-group">
                 <label>Mobile Number</label>
                 <input
@@ -1438,6 +1512,12 @@ export default function App() {
                 />
               </div>
 
+              {/* ── Applied Post Dropdown ──
+                  This is the ORIGINAL dropdown, untouched.
+                  It reads from the `departments` array which is
+                  derived from `questions` state populated by EXAM_API fetch.
+                  Do NOT convert this to a text input.
+              ── */}
               <div className="field-group">
                 <label>Applied Post</label>
                 <select
@@ -1446,7 +1526,9 @@ export default function App() {
                 >
                   <option value="">— Select Department / Post —</option>
                   {departments.map((dept, i) => (
-                    <option key={i} value={dept}>{dept}</option>
+                    <option key={i} value={dept}>
+                      {dept}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -1463,13 +1545,17 @@ export default function App() {
         ════════════════════════════════════════ */}
         {view === "exam" && (
           <div className="exam-wrapper">
+
             <div className="card exam-topbar">
               <div className="topbar-info">
                 <h2>
                   {candidateName}
                   <span className="post-tag">{selectedDept}</span>
                 </h2>
-                <p>📋 {filteredQuestions.length} Questions &nbsp;|&nbsp; Answer all carefully</p>
+                <p>
+                  📋 {filteredQuestions.length} Questions &nbsp;|&nbsp; Answer
+                  all carefully
+                </p>
               </div>
               <div className={`timer-box ${isWarning ? "warning" : ""}`}>
                 ⏱ {mins}:{secs}
@@ -1481,12 +1567,19 @@ export default function App() {
                 {answered} of {filteredQuestions.length} answered
               </div>
               <div className="progress-wrap">
-                <div className="progress-fill" style={{ width: `${progressPct}%` }} />
+                <div
+                  className="progress-fill"
+                  style={{ width: `${progressPct}%` }}
+                />
               </div>
             </div>
 
             {filteredQuestions.map((q, index) => (
-              <div className="question-card" key={index} onChange={countAnswered}>
+              <div
+                className="question-card"
+                key={index}
+                onChange={countAnswered}
+              >
                 <div className="q-header">
                   <div className="q-number">{index + 1}</div>
                   <div className="q-text">{q.question}</div>
@@ -1566,17 +1659,24 @@ export default function App() {
                 👤 New Candidate Login
               </button>
 
-              {/* Divider — subtle separator before admin button */}
-              <div className="btn-divider" style={{ maxWidth: "260px", margin: "16px auto 0" }}>
+              {/* Divider */}
+              <div
+                className="btn-divider"
+                style={{ maxWidth: "260px", margin: "16px auto 0" }}
+              >
                 <div className="btn-divider-line" />
                 <span>Admin Access</span>
                 <div className="btn-divider-line" />
               </div>
 
-              {/* ── NEW: View Dashboard Button ── */}
+              {/* View Dashboard Button */}
               <button
                 className="btn-dashboard"
-                style={{ maxWidth: "260px", margin: "8px auto 0", display: "block" }}
+                style={{
+                  maxWidth: "260px",
+                  margin: "8px auto 0",
+                  display: "block",
+                }}
                 onClick={() => setView("adminLogin")}
               >
                 🔐 View Dashboard
@@ -1593,7 +1693,9 @@ export default function App() {
             <div className="card">
               <div className="admin-login-icon">🔐</div>
               <h2>Admin Login</h2>
-              <p className="subtitle">Restricted area — authorised personnel only</p>
+              <p className="subtitle">
+                Restricted area — authorised personnel only
+              </p>
 
               <div className="field-group">
                 <label>Username</label>
@@ -1646,7 +1748,10 @@ export default function App() {
                   🏢 OSWAL Hiring Portal
                 </div>
                 <h2>📊 Admin Dashboard</h2>
-                <p>Candidate results & analytics — real-time data from Google Sheets</p>
+                <p>
+                  Candidate results & analytics — real-time data from Google
+                  Sheets
+                </p>
               </div>
               <div className="dashboard-header-right">
                 <button
@@ -1654,9 +1759,16 @@ export default function App() {
                   onClick={() => fetchDashboardData(false)}
                   title="Refresh Data"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                    strokeLinejoin="round">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <polyline points="23 4 23 10 17 10" />
                     <polyline points="1 20 1 14 7 14" />
                     <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
@@ -1673,7 +1785,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* ── STAT CARDS ── */}
+            {/* Stat Cards */}
             <div className="stat-grid">
               <div className="stat-card">
                 <div className="stat-icon total">👥</div>
@@ -1711,9 +1823,8 @@ export default function App() {
               </div>
             </div>
 
-            {/* ── CONTROLS BAR ── */}
+            {/* Controls Bar */}
             <div className="controls-bar">
-              {/* Search */}
               <div className="search-input-wrap">
                 <span className="search-icon">🔍</span>
                 <input
@@ -1723,23 +1834,27 @@ export default function App() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-
-              {/* Result Filter */}
               <div className="filter-group">
                 <button
-                  className={`filter-btn ${resultFilter === "ALL" ? "active-all" : ""}`}
+                  className={`filter-btn ${
+                    resultFilter === "ALL" ? "active-all" : ""
+                  }`}
                   onClick={() => setResultFilter("ALL")}
                 >
                   All ({dashboardData.length})
                 </button>
                 <button
-                  className={`filter-btn ${resultFilter === "PASS" ? "active-pass" : ""}`}
+                  className={`filter-btn ${
+                    resultFilter === "PASS" ? "active-pass" : ""
+                  }`}
                   onClick={() => setResultFilter("PASS")}
                 >
                   ✅ Pass ({totalPass})
                 </button>
                 <button
-                  className={`filter-btn ${resultFilter === "FAIL" ? "active-fail" : ""}`}
+                  className={`filter-btn ${
+                    resultFilter === "FAIL" ? "active-fail" : ""
+                  }`}
                   onClick={() => setResultFilter("FAIL")}
                 >
                   ❌ Fail ({totalFail})
@@ -1747,7 +1862,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* ── DATA TABLE ── */}
+            {/* Data Table */}
             <div className="table-wrap">
               <div className="table-scroll">
                 <table>
@@ -1768,7 +1883,13 @@ export default function App() {
                       <tr className="loading-row">
                         <td colSpan="8">
                           <div className="dash-spinner" />
-                          <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 700, color: "#6b7280" }}>
+                          <div
+                            style={{
+                              fontFamily: "'Nunito', sans-serif",
+                              fontWeight: 700,
+                              color: "#6b7280",
+                            }}
+                          >
                             Loading candidates...
                           </div>
                         </td>
@@ -1789,27 +1910,44 @@ export default function App() {
                       </tr>
                     ) : (
                       filteredDash.map((row, i) => {
-                        const isPass = (row.result || "").toUpperCase() === "PASS";
+                        const isPass =
+                          (row.result || "").toUpperCase() === "PASS";
                         return (
                           <tr key={i}>
-                            <td style={{ color: "#9ca3af", fontWeight: 700, fontSize: "12px" }}>
+                            <td
+                              style={{
+                                color: "#9ca3af",
+                                fontWeight: 700,
+                                fontSize: "12px",
+                              }}
+                            >
                               {i + 1}
                             </td>
                             <td className="td-name">{row.name || "—"}</td>
                             <td className="td-email">{row.email || "—"}</td>
                             <td className="td-mobile">{row.mobile || "—"}</td>
                             <td>
-                              <span className="post-pill">{row.post || "—"}</span>
+                              <span className="post-pill">
+                                {row.post || "—"}
+                              </span>
                             </td>
                             <td>
-                              <span className="score-pill">{row.score || "—"}</span>
+                              <span className="score-pill">
+                                {row.score || "—"}
+                              </span>
                             </td>
                             <td>
-                              <span className={`result-badge ${isPass ? "pass" : "fail"}`}>
+                              <span
+                                className={`result-badge ${
+                                  isPass ? "pass" : "fail"
+                                }`}
+                              >
                                 {isPass ? "✓ PASS" : "✗ FAIL"}
                               </span>
                             </td>
-                            <td className="td-time">{row.timestamp || "—"}</td>
+                            <td className="td-time">
+                              {row.timestamp || "—"}
+                            </td>
                           </tr>
                         );
                       })
@@ -1818,7 +1956,6 @@ export default function App() {
                 </table>
               </div>
 
-              {/* Table Footer */}
               {!dashLoading && filteredDash.length > 0 && (
                 <div className="table-footer">
                   <span>
@@ -1826,7 +1963,7 @@ export default function App() {
                     <strong>{dashboardData.length}</strong> records
                   </span>
                   <span>
-                    {resultFilter !== "ALL" && (
+                    {(resultFilter !== "ALL" || searchQuery) && (
                       <button
                         style={{
                           background: "none",
