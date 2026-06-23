@@ -7,14 +7,43 @@ const styles = `
 
   body {
     font-family: 'Poppins', sans-serif;
-    background: #f0f4ff;
+    background: #faf8f5;
     min-height: 100vh;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(253, 224, 71, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -10%;
+    left: -10%;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
   }
 
   .portal-wrapper {
     min-height: 100vh;
-    background: linear-gradient(135deg, #e8f0fe 0%, #fce8f3 50%, #e8fef0 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #faf6e8 50%, #f7f0d3 100%);
     padding: 30px 20px 60px;
+    position: relative;
+    z-index: 1;
   }
 
   .portal-header {
@@ -657,9 +686,16 @@ const styles = `
 
   /* ── DASHBOARD ── */
   .dashboard-wrapper {
-    max-width: 1400px;
+    max-width: 1500px;
     width: 96%;
     margin: 0 auto;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 50px rgba(139, 92, 26, 0.05), 0 2px 10px rgba(0, 0, 0, 0.02);
   }
   .dashboard-header {
     display: flex;
@@ -730,54 +766,66 @@ const styles = `
 
   .stat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
   }
   .stat-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    padding: 24px 20px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
+    padding: 26px 24px;
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: transform 0.18s, box-shadow 0.18s;
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
   }
   .stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(79,142,247,0.12);
+    transform: translateY(-5px);
+  }
+  .stat-card.candidates-card {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25), inset 0 2px 4px rgba(255,255,255,0.2);
+  }
+  .stat-card.pass-card {
+    background: linear-gradient(135deg, #059669, #047857);
+    box-shadow: 0 12px 24px rgba(5, 150, 105, 0.25), inset 0 2px 4px rgba(255,255,255,0.2);
+  }
+  .stat-card.fail-card {
+    background: linear-gradient(135deg, #ea580c, #dc2626);
+    box-shadow: 0 12px 24px rgba(220, 38, 38, 0.25), inset 0 2px 4px rgba(255,255,255,0.2);
+  }
+  .stat-card.rate-card {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    box-shadow: 0 12px 24px rgba(124, 58, 237, 0.25), inset 0 2px 4px rgba(255,255,255,0.2);
   }
   .stat-icon {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
-    color: #fff;
+    font-size: 28px;
     flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
-  .stat-icon.total  { background: linear-gradient(135deg, #4f8ef7, #1e3a8a); }
-  .stat-icon.pass   { background: linear-gradient(135deg, #10b981, #065f46); }
-  .stat-icon.fail   { background: linear-gradient(135deg, #ef4444, #991b1b); }
-  .stat-icon.rate   { background: linear-gradient(135deg, #f59e0b, #92400e); }
   .stat-info .stat-num {
     font-family: 'Nunito', sans-serif;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 900;
-    color: #1a1d3b;
-    line-height: 1;
+    line-height: 1.1;
+    color: #ffffff;
   }
   .stat-info .stat-label {
     font-size: 12px;
-    color: #6b7280;
     font-weight: 600;
-    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .controls-bar {
@@ -862,11 +910,12 @@ const styles = `
   }
 
   .table-wrap {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
     overflow: hidden;
   }
   .table-scroll {
@@ -880,13 +929,13 @@ const styles = `
     min-width: 600px;
   }
   thead th {
-    padding: 16px 20px;
+    padding: 18px 24px;
     text-align: left;
     font-family: 'Nunito', sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
-    color: rgba(255,255,255,0.9);
-    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     white-space: nowrap;
     position: sticky;
@@ -895,13 +944,18 @@ const styles = `
     background: linear-gradient(135deg, #1a1d3b, #2d3069);
   }
   tbody tr {
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: background 0.12s;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    transition: background 0.2s ease;
+  }
+  tbody tr:nth-child(even) {
+    background: rgba(250, 248, 245, 0.4);
   }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(79, 142, 247, 0.05); }
+  tbody tr:hover {
+    background: rgba(79, 142, 247, 0.04);
+  }
   tbody td {
-    padding: 14px 20px;
+    padding: 16px 24px;
     font-size: 13px;
     color: #374151;
     vertical-align: middle;
@@ -913,13 +967,14 @@ const styles = `
     font-size: 14px;
   }
   .td-email {
-    color: #4f8ef7;
+    color: #3b82f6;
+    font-weight: 600;
     font-size: 13px;
   }
   .td-mobile {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
-    color: #374151;
+    color: #4b5563;
   }
   .result-badge {
     display: inline-flex;
@@ -928,7 +983,7 @@ const styles = `
     font-family: 'Nunito', sans-serif;
     font-weight: 800;
     font-size: 11px;
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 50px;
     letter-spacing: 0.5px;
   }
@@ -936,11 +991,13 @@ const styles = `
     background: #e6fcf5;
     color: #0ca678;
     border: 1px solid #96f2d7;
+    box-shadow: 0 0 12px rgba(12, 166, 120, 0.15);
   }
   .result-badge.fail {
     background: #fff5f5;
     color: #f03e3e;
     border: 1px solid #ffc9c9;
+    box-shadow: 0 0 12px rgba(240, 62, 62, 0.15);
   }
   .table-footer {
     padding: 14px 18px;
@@ -1000,19 +1057,19 @@ const styles = `
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 12px;
-    border-radius: 8px;
+    padding: 8px 14px;
+    border-radius: 50px;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
     font-family: 'Nunito', sans-serif;
     text-decoration: none;
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: all 0.2s ease;
     cursor: pointer;
     border: none;
     line-height: 1;
   }
   .action-btn:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
   .action-btn:active {
     transform: translateY(0);
@@ -1021,22 +1078,22 @@ const styles = `
     flex-shrink: 0;
   }
   .email-btn {
-    background: linear-gradient(135deg, #e0eaff, #ede0ff);
-    color: #4f3fa0;
-    border: 1px solid #c7d2fe;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
   }
   .email-btn:hover {
-    background: linear-gradient(135deg, #c7d2fe, #dbeafe);
-    box-shadow: 0 4px 12px rgba(79, 63, 160, 0.15);
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    box-shadow: 0 6px 16px rgba(29, 78, 216, 0.35);
   }
   .wa-btn {
-    background: linear-gradient(135deg, #e6fcf5, #d3f9d8);
-    color: #0b7285;
-    border: 1px solid #b2f2bb;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
   }
   .wa-btn:hover {
-    background: linear-gradient(135deg, #b2f2bb, #c3fae8);
-    box-shadow: 0 4px 12px rgba(11, 114, 133, 0.15);
+    background: linear-gradient(135deg, #059669, #047857);
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
   }
 
   .btn-dashboard {
@@ -1881,37 +1938,31 @@ export default function App() {
 
             {/* Stat Cards */}
             <div className="stat-grid">
-              <div className="stat-card">
+              <div className="stat-card candidates-card">
                 <div className="stat-icon total">👥</div>
                 <div className="stat-info">
                   <div className="stat-num">{totalCandidatesCount}</div>
                   <div className="stat-label">Total Candidates</div>
                 </div>
               </div>
-              <div className="stat-card">
+              <div className="stat-card pass-card">
                 <div className="stat-icon pass">✅</div>
                 <div className="stat-info">
-                  <div className="stat-num" style={{ color: "#10b981" }}>
-                    {totalPassCount}
-                  </div>
+                  <div className="stat-num">{totalPassCount}</div>
                   <div className="stat-label">Total Pass</div>
                 </div>
               </div>
-              <div className="stat-card">
+              <div className="stat-card fail-card">
                 <div className="stat-icon fail">❌</div>
                 <div className="stat-info">
-                  <div className="stat-num" style={{ color: "#ef4444" }}>
-                    {totalFailCount}
-                  </div>
+                  <div className="stat-num">{totalFailCount}</div>
                   <div className="stat-label">Total Fail</div>
                 </div>
               </div>
-              <div className="stat-card">
+              <div className="stat-card rate-card">
                 <div className="stat-icon rate">📈</div>
                 <div className="stat-info">
-                  <div className="stat-num" style={{ color: "#f59e0b" }}>
-                    {passRatePct}%
-                  </div>
+                  <div className="stat-num">{passRatePct}%</div>
                   <div className="stat-label">Pass Rate</div>
                 </div>
               </div>
