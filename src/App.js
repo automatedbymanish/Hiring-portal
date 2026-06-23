@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import logo from "./logo.svg";
-import loginBg from "./assets/login-bg.jpg";
+import loginBg from "./assets/login-bg.avif";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
