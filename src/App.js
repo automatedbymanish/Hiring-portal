@@ -2006,7 +2006,7 @@ export default function App() {
 
                         const emailSubject = "Application Update";
                         const emailBody = `Dear ${row[0] || "Candidate"},\n\nThank you for participating in the assessment process with OSWAL Hiring Portal.\n\nYour application has been successfully reviewed. Our HR team will contact you regarding the next steps if your profile matches our current requirements.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
-                        const emailUrl = `mailto:${row[1] || ""}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                        const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(row[1] || "")}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
                         const waMessage = `Dear ${row[0] || "Candidate"},\n\nThank you for appearing in the assessment conducted by OSWAL Hiring Portal.\n\nYour application has been received successfully. Our HR team will review your profile and contact you regarding further updates if shortlisted.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
                         const cleanedMobile = (row[2] || "").replace(/\D/g, "");
@@ -2031,6 +2031,8 @@ export default function App() {
                               <div className="td-actions">
                                 <a
                                   href={emailUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
                                   className="action-btn email-btn"
                                   title="Send Email"
                                 >
