@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import logo from "./logo.svg";
 import loginBg from "./assets/login-bg.avif";
+import oswalLogo from "./assets/oswal-logo.png";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
@@ -1234,18 +1235,29 @@ const styles = `
     padding: 40px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
-  .left-tag {
-    display: inline-block;
-    color: #ffd54f;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    background: rgba(244, 180, 0, 0.15);
-    padding: 6px 14px;
+  .branding-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
     border-radius: 50px;
-    border: 1px solid rgba(244, 180, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .branding-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+  }
+  .branding-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffd54f;
+    text-transform: uppercase;
   }
   .left-content-panel h2 {
     font-family: 'Nunito', sans-serif;
@@ -1321,25 +1333,47 @@ const styles = `
   .logo-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 24px;
   }
   .company-logo {
-    width: 32px;
-    height: 32px;
-    filter: drop-shadow(0 2px 4px rgba(79, 142, 247, 0.15));
+    height: 48px;
+    width: auto;
+    object-fit: contain;
   }
   .company-logo-text {
     font-family: 'Nunito', sans-serif;
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: 1px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
     color: #1a1d3b;
   }
-  .company-logo-text::after {
-    content: ' Hiring';
-    color: #f4b400;
-    font-weight: 700;
+
+  /* Branding Badge (Header & Dashboard) */
+  .branding-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(244, 180, 0, 0.35);
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  }
+  .badge-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+  }
+  .badge-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: #1a1d3b;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
   
   .welcome-heading {
@@ -1894,7 +1928,10 @@ export default function App() {
             <div className="left-overlay" />
             <div className="left-content-panel">
               <div className="glass-panel">
-                <span className="left-tag">🏢 OSWAL Hiring Portal</span>
+                <div className="branding-container">
+                  <img src={oswalLogo} className="branding-logo" alt="OSWAL Logo" />
+                  <span className="branding-text">Hiring Portal</span>
+                </div>
                 <h2>Great People Build <span className="highlight-gold">Great Companies.</span></h2>
                 <p className="left-sub">At OSWAL, we believe talent, dedication and innovation drive success.</p>
                 <div className="left-quote">
@@ -1909,8 +1946,8 @@ export default function App() {
             {view === "login" && (
               <div className="card form-card login-glass-card">
                 <div className="logo-container">
-                  <img src={logo} className="company-logo" alt="OSWAL Logo" />
-                  <span className="company-logo-text">OSWAL</span>
+                  <img src={oswalLogo} className="company-logo" alt="OSWAL Logo" />
+                  <span className="company-logo-text">Hiring Portal</span>
                 </div>
                 <h2 className="welcome-heading">Welcome Back</h2>
                 <p className="welcome-subtitle">Please enter your candidate details to start your assessment</p>
@@ -1992,8 +2029,8 @@ export default function App() {
             {view === "adminLogin" && (
               <div className="admin-login-wrap card login-glass-card">
                 <div className="logo-container">
-                  <img src={logo} className="company-logo" alt="OSWAL Logo" />
-                  <span className="company-logo-text">OSWAL</span>
+                  <img src={oswalLogo} className="company-logo" alt="OSWAL Logo" />
+                  <span className="company-logo-text">Hiring Portal</span>
                 </div>
                 
                 <h2 className="welcome-heading">Welcome Back</h2>
@@ -2042,7 +2079,10 @@ export default function App() {
           {/* Header — hidden on dashboard for cleaner look */}
           {view !== "dashboard" && (
             <div className="portal-header">
-              <div className="badge">🏢 OSWAL Hiring Portal</div>
+              <div className="branding-badge">
+                <img src={oswalLogo} className="badge-logo" alt="OSWAL Logo" />
+                <span className="badge-text">Hiring Portal</span>
+              </div>
               <h1>Online <span>Examination</span> System</h1>
               <p>Professional Assessment Platform — Attempt all questions carefully</p>
             </div>
@@ -2204,8 +2244,9 @@ export default function App() {
             {/* Dashboard Header */}
             <div className="dashboard-header">
               <div className="dashboard-header-left">
-                <div className="badge" style={{ marginBottom: "8px" }}>
-                  🏢 OSWAL Hiring Portal
+                <div className="branding-badge" style={{ marginBottom: "12px" }}>
+                  <img src={oswalLogo} className="badge-logo" alt="OSWAL Logo" />
+                  <span className="badge-text">Hiring Portal</span>
                 </div>
                 <h2>📊 Admin Dashboard</h2>
                 <p>
