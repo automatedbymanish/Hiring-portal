@@ -2059,13 +2059,18 @@ export default function App() {
                         const candidateEmail = (row[1] || "").trim().replace(/[\r\n]/g, "").replace(/\s+/g, "");
 
                         const emailSubject = "Application Update";
-                        const emailBody = `Dear ${candidateName},\n\nThank you for participating in the assessment process with OSWAL Hiring Portal.\n\nYour application has been successfully reviewed. Our HR team will contact you regarding the next steps if your profile matches our current requirements.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
-                        const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(candidateEmail)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-
-                        const waMessage = `Dear ${candidateName},\n\nThank you for appearing in the assessment conducted by OSWAL Hiring Portal.\n\nYour application has been received successfully. Our HR team will review your profile and contact you regarding further updates if shortlisted.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
                         const cleanedMobile = (row[2] || "").replace(/\D/g, "");
                         const waNumber = cleanedMobile.length === 10 ? `91${cleanedMobile}` : cleanedMobile;
-                        const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+
+                        let messageText = "";
+                        if (isPass) {
+                          messageText = `Dear ${candidateName},\n\nCongratulations!\n\nWe are pleased to inform you that you have successfully cleared the assessment round for the position you applied for.\n\nOur HR team will contact you shortly regarding the next stage of the selection process.\n\nWe appreciate your participation and look forward to speaking with you soon.\n\nBest Regards,\nHR Team\nOSWAL Hiring Portal`;
+                        } else {
+                          messageText = `Dear ${candidateName},\n\nThank you for participating in the assessment process with OSWAL Hiring Portal.\n\nAfter careful evaluation, we regret to inform you that you have not been selected for the next stage of the recruitment process on this occasion.\n\nWe sincerely appreciate your interest in our organization and encourage you to apply again for future opportunities that match your skills and experience.\n\nWe wish you all the very best in your career and future endeavors.\n\nBest Regards,\nHR Team\nOSWAL Hiring Portal`;
+                        }
+
+                        const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(candidateEmail)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(messageText)}`;
+                        const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(messageText)}`;
 
                         return (
                           <tr key={i}>
