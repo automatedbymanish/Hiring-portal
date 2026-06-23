@@ -657,7 +657,8 @@ const styles = `
 
   /* ── DASHBOARD ── */
   .dashboard-wrapper {
-    max-width: 1100px;
+    max-width: 1400px;
+    width: 96%;
     margin: 0 auto;
   }
   .dashboard-header {
@@ -670,7 +671,7 @@ const styles = `
   }
   .dashboard-header-left h2 {
     font-family: 'Nunito', sans-serif;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 900;
     color: #1a1d3b;
   }
@@ -697,12 +698,12 @@ const styles = `
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 3px 12px rgba(79,142,247,0.28);
+    box-shadow: 0 4px 14px rgba(79,142,247,0.25);
     transition: transform 0.15s, box-shadow 0.15s;
   }
   .btn-refresh:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(79,142,247,0.38);
+    box-shadow: 0 6px 18px rgba(79,142,247,0.35);
   }
   .btn-refresh.spinning svg {
     animation: spin 0.7s linear infinite;
@@ -729,42 +730,45 @@ const styles = `
 
   .stat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
     margin-bottom: 24px;
   }
   .stat-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 22px 20px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 24px 20px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
     display: flex;
     align-items: center;
-    gap: 16px;
-    border: 1.5px solid #f3f4f6;
+    gap: 20px;
     transition: transform 0.18s, box-shadow 0.18s;
   }
   .stat-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(79,142,247,0.12);
+    box-shadow: 0 12px 36px rgba(79,142,247,0.12);
   }
   .stat-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 26px;
+    color: #fff;
     flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
   }
-  .stat-icon.total  { background: linear-gradient(135deg, #dbeafe, #ede9fe); }
-  .stat-icon.pass   { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
-  .stat-icon.fail   { background: linear-gradient(135deg, #fee2e2, #fecaca); }
-  .stat-icon.rate   { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+  .stat-icon.total  { background: linear-gradient(135deg, #4f8ef7, #1e3a8a); }
+  .stat-icon.pass   { background: linear-gradient(135deg, #10b981, #065f46); }
+  .stat-icon.fail   { background: linear-gradient(135deg, #ef4444, #991b1b); }
+  .stat-icon.rate   { background: linear-gradient(135deg, #f59e0b, #92400e); }
   .stat-info .stat-num {
     font-family: 'Nunito', sans-serif;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 900;
     color: #1a1d3b;
     line-height: 1;
@@ -777,16 +781,17 @@ const styles = `
   }
 
   .controls-bar {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 16px;
     padding: 18px 20px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
     margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     align-items: center;
-    border: 1.5px solid #f3f4f6;
   }
   .search-input-wrap {
     position: relative;
@@ -804,7 +809,7 @@ const styles = `
   }
   .search-input-wrap input {
     width: 100%;
-    padding: 10px 12px 10px 36px;
+    padding: 11px 12px 11px 36px;
     border: 1.5px solid #e5e7eb;
     border-radius: 10px;
     font-size: 13px;
@@ -857,42 +862,46 @@ const styles = `
   }
 
   .table-wrap {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
-    border: 1.5px solid #f3f4f6;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
     overflow: hidden;
   }
   .table-scroll {
     overflow-x: auto;
+    max-height: 600px;
+    overflow-y: auto;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 720px;
-  }
-  thead {
-    background: linear-gradient(135deg, #1a1d3b, #2d3069);
+    min-width: 600px;
   }
   thead th {
-    padding: 14px 16px;
+    padding: 16px 20px;
     text-align: left;
     font-family: 'Nunito', sans-serif;
     font-size: 11px;
     font-weight: 800;
-    color: rgba(255,255,255,0.85);
+    color: rgba(255,255,255,0.9);
     letter-spacing: 1px;
     text-transform: uppercase;
     white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(135deg, #1a1d3b, #2d3069);
   }
   tbody tr {
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
     transition: background 0.12s;
   }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: #f8faff; }
+  tbody tr:hover { background: rgba(79, 142, 247, 0.05); }
   tbody td {
-    padding: 13px 16px;
+    padding: 14px 20px;
     font-size: 13px;
     color: #374151;
     vertical-align: middle;
@@ -905,32 +914,12 @@ const styles = `
   }
   .td-email {
     color: #4f8ef7;
-    font-size: 12px;
+    font-size: 13px;
   }
   .td-mobile {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     color: #374151;
-  }
-  .post-pill {
-    display: inline-block;
-    background: linear-gradient(90deg, #e0eaff, #ede0ff);
-    color: #4f3fa0;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 50px;
-    white-space: nowrap;
-  }
-  .score-pill {
-    display: inline-block;
-    background: #f3f4f6;
-    color: #1a1d3b;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    padding: 3px 10px;
-    border-radius: 6px;
   }
   .result-badge {
     display: inline-flex;
@@ -938,30 +927,25 @@ const styles = `
     gap: 4px;
     font-family: 'Nunito', sans-serif;
     font-weight: 800;
-    font-size: 12px;
+    font-size: 11px;
     padding: 4px 12px;
     border-radius: 50px;
     letter-spacing: 0.5px;
   }
   .result-badge.pass {
-    background: #dcfce7;
-    color: #15803d;
-    border: 1.5px solid #86efac;
+    background: #e6fcf5;
+    color: #0ca678;
+    border: 1px solid #96f2d7;
   }
   .result-badge.fail {
-    background: #fee2e2;
-    color: #b91c1c;
-    border: 1.5px solid #fca5a5;
-  }
-  .td-time {
-    font-size: 11px;
-    color: #9ca3af;
-    white-space: nowrap;
+    background: #fff5f5;
+    color: #f03e3e;
+    border: 1px solid #ffc9c9;
   }
   .table-footer {
     padding: 14px 18px;
-    background: #f9fafb;
-    border-top: 1px solid #f3f4f6;
+    background: rgba(249, 250, 251, 0.8);
+    border-top: 1px solid rgba(0,0,0,0.05);
     font-size: 12px;
     color: #6b7280;
     font-weight: 600;
@@ -1338,28 +1322,83 @@ export default function App() {
     ? Math.round((answered / filteredQuestions.length) * 100)
     : 0;
 
-  // Dashboard computed
-  const totalPass = dashboardData.filter(
-    (r) => (r.result || "").toUpperCase() === "PASS"
+  // Map raw dashboard data to strict row arrays:
+  // A = Name (item.timestamp)
+  // B = Email (item.name)
+  // C = Mobile (item.email)
+  // D = Post (item.mobile)
+  // E = Score (item.post)
+  // F = Result (item.score)
+  // G = Date (item.result)
+  const mappedRows = dashboardData.map((item) => [
+    item.timestamp, // Column A: Name
+    item.name,      // Column B: Email
+    item.email,     // Column C: Mobile
+    item.mobile,    // Column D: Post
+    item.post,      // Column E: Score
+    item.score,     // Column F: Result
+    item.result     // Column G: Date
+  ]);
+
+  // Cards should calculate from all sheet rows
+  const totalCandidatesCount = mappedRows.length;
+  const totalPassCount = mappedRows.filter(
+    (row) => (row[5] || "").toUpperCase() === "PASS"
   ).length;
-  const totalFail = dashboardData.filter(
-    (r) => (r.result || "").toUpperCase() === "FAIL"
+  const totalFailCount = mappedRows.filter(
+    (row) => (row[5] || "").toUpperCase() === "FAIL"
   ).length;
-  const passRate = dashboardData.length > 0
-    ? Math.round((totalPass / dashboardData.length) * 100)
+  const passRatePct = totalCandidatesCount > 0
+    ? Math.round((totalPassCount / totalCandidatesCount) * 100)
     : 0;
 
-  const filteredDash = dashboardData.filter((row) => {
-    const q           = searchQuery.toLowerCase();
+  // Helper to parse dates safely
+  function parseDate(dateStr) {
+    if (!dateStr) return new Date(0);
+    const parts = dateStr.match(/^(\d{2})-(\d{2})-(\d{4})\s+(\d{2}):(\d{2}):(\d{2})$/);
+    if (parts) {
+      return new Date(parts[3], parts[2] - 1, parts[1], parts[4], parts[5], parts[6]);
+    }
+    const parsed = new Date(dateStr);
+    return isNaN(parsed.getTime()) ? new Date(0) : parsed;
+  }
+
+  // Deduplicate for the table (show only latest attempt per candidate based on email + mobile)
+  const sortedRows = [...mappedRows].sort((a, b) => {
+    return parseDate(b[6]) - parseDate(a[6]);
+  });
+
+  const deDuplicatedRows = [];
+  const seenCandidates = new Set();
+  for (const row of sortedRows) {
+    const email = (row[1] || "").trim().toLowerCase();
+    const mobile = (row[2] || "").trim().toLowerCase();
+    const uniqueKey = `${email}|${mobile}`;
+    if (!seenCandidates.has(uniqueKey)) {
+      seenCandidates.add(uniqueKey);
+      deDuplicatedRows.push(row);
+    }
+  }
+
+  // Filter button counts should show values matching the deduplicated list
+  const deDuplicatedPassCount = deDuplicatedRows.filter(
+    (row) => (row[5] || "").toUpperCase() === "PASS"
+  ).length;
+  const deDuplicatedFailCount = deDuplicatedRows.filter(
+    (row) => (row[5] || "").toUpperCase() === "FAIL"
+  ).length;
+
+  // Filter the deduplicated rows by search and result status
+  const filteredDash = deDuplicatedRows.filter((row) => {
+    const q = searchQuery.toLowerCase().trim();
     const matchSearch =
       !q ||
-      (row.name   || "").toLowerCase().includes(q) ||
-      (row.email  || "").toLowerCase().includes(q) ||
-      (row.mobile || "").toLowerCase().includes(q) ||
-      (row.post   || "").toLowerCase().includes(q);
+      (row[0] || "").toLowerCase().includes(q) ||
+      (row[1] || "").toLowerCase().includes(q) ||
+      (row[2] || "").toLowerCase().includes(q);
     const matchResult =
       resultFilter === "ALL" ||
-      (row.result || "").toUpperCase() === resultFilter;
+      (row[5] || "").toUpperCase() === resultFilter;
     return matchSearch && matchResult;
   });
 
@@ -1797,15 +1836,15 @@ export default function App() {
               <div className="stat-card">
                 <div className="stat-icon total">👥</div>
                 <div className="stat-info">
-                  <div className="stat-num">{dashboardData.length}</div>
+                  <div className="stat-num">{totalCandidatesCount}</div>
                   <div className="stat-label">Total Candidates</div>
                 </div>
               </div>
               <div className="stat-card">
                 <div className="stat-icon pass">✅</div>
                 <div className="stat-info">
-                  <div className="stat-num" style={{ color: "#15803d" }}>
-                    {totalPass}
+                  <div className="stat-num" style={{ color: "#10b981" }}>
+                    {totalPassCount}
                   </div>
                   <div className="stat-label">Total Pass</div>
                 </div>
@@ -1813,8 +1852,8 @@ export default function App() {
               <div className="stat-card">
                 <div className="stat-icon fail">❌</div>
                 <div className="stat-info">
-                  <div className="stat-num" style={{ color: "#b91c1c" }}>
-                    {totalFail}
+                  <div className="stat-num" style={{ color: "#ef4444" }}>
+                    {totalFailCount}
                   </div>
                   <div className="stat-label">Total Fail</div>
                 </div>
@@ -1822,8 +1861,8 @@ export default function App() {
               <div className="stat-card">
                 <div className="stat-icon rate">📈</div>
                 <div className="stat-info">
-                  <div className="stat-num" style={{ color: "#92400e" }}>
-                    {passRate}%
+                  <div className="stat-num" style={{ color: "#f59e0b" }}>
+                    {passRatePct}%
                   </div>
                   <div className="stat-label">Pass Rate</div>
                 </div>
@@ -1836,7 +1875,7 @@ export default function App() {
                 <span className="search-icon">🔍</span>
                 <input
                   type="text"
-                  placeholder="Search by name, email, mobile or department..."
+                  placeholder="Search by name, email or mobile number..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -1848,7 +1887,7 @@ export default function App() {
                   }`}
                   onClick={() => setResultFilter("ALL")}
                 >
-                  All ({dashboardData.length})
+                  All ({deDuplicatedRows.length})
                 </button>
                 <button
                   className={`filter-btn ${
@@ -1856,7 +1895,7 @@ export default function App() {
                   }`}
                   onClick={() => setResultFilter("PASS")}
                 >
-                  ✅ Pass ({totalPass})
+                  ✅ Pass ({deDuplicatedPassCount})
                 </button>
                 <button
                   className={`filter-btn ${
@@ -1864,7 +1903,7 @@ export default function App() {
                   }`}
                   onClick={() => setResultFilter("FAIL")}
                 >
-                  ❌ Fail ({totalFail})
+                  ❌ Fail ({deDuplicatedFailCount})
                 </button>
               </div>
             </div>
@@ -1875,20 +1914,16 @@ export default function App() {
                 <table>
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Candidate Name</th>
+                      <th>Name</th>
                       <th>Email</th>
-                      <th>Mobile</th>
-                      <th>Applied Post</th>
-                      <th>Score</th>
-                      <th>Result</th>
-                      <th>Date / Time</th>
+                      <th>Mobile Number</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {dashLoading ? (
                       <tr className="loading-row">
-                        <td colSpan="8">
+                        <td colSpan="4">
                           <div className="dash-spinner" />
                           <div
                             style={{
@@ -1903,7 +1938,7 @@ export default function App() {
                       </tr>
                     ) : filteredDash.length === 0 ? (
                       <tr>
-                        <td colSpan="8">
+                        <td colSpan="4">
                           <div className="no-data">
                             <div className="no-data-icon">🗂️</div>
                             <p>No records found</p>
@@ -1918,31 +1953,12 @@ export default function App() {
                     ) : (
                       filteredDash.map((row, i) => {
                         const isPass =
-                          (row.result || "").toUpperCase() === "PASS";
+                          (row[5] || "").toUpperCase() === "PASS";
                         return (
                           <tr key={i}>
-                            <td
-                              style={{
-                                color: "#9ca3af",
-                                fontWeight: 700,
-                                fontSize: "12px",
-                              }}
-                            >
-                              {i + 1}
-                            </td>
-                            <td className="td-name">{row.name || "—"}</td>
-                            <td className="td-email">{row.email || "—"}</td>
-                            <td className="td-mobile">{row.mobile || "—"}</td>
-                            <td>
-                              <span className="post-pill">
-                                {row.post || "—"}
-                              </span>
-                            </td>
-                            <td>
-                              <span className="score-pill">
-                                {row.score || "—"}
-                              </span>
-                            </td>
+                            <td className="td-name">{row[0] || "—"}</td>
+                            <td className="td-email">{row[1] || "—"}</td>
+                            <td className="td-mobile">{row[2] || "—"}</td>
                             <td>
                               <span
                                 className={`result-badge ${
@@ -1951,9 +1967,6 @@ export default function App() {
                               >
                                 {isPass ? "✓ PASS" : "✗ FAIL"}
                               </span>
-                            </td>
-                            <td className="td-time">
-                              {row.timestamp || "—"}
                             </td>
                           </tr>
                         );
@@ -1967,7 +1980,7 @@ export default function App() {
                 <div className="table-footer">
                   <span>
                     Showing <strong>{filteredDash.length}</strong> of{" "}
-                    <strong>{dashboardData.length}</strong> records
+                    <strong>{deDuplicatedRows.length}</strong> records
                   </span>
                   <span>
                     {(resultFilter !== "ALL" || searchQuery) && (
