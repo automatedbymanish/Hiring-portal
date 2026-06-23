@@ -1115,12 +1115,18 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
+          console.log("Questions Loaded:", data.length);
+          console.log("Questions Data:", data);
+          console.log("First Record:", data[0]);
           setQuestions(data);
         } else {
+          console.log("Questions Loaded: 0 (response not array)");
+          console.log("Questions Data:", data);
           setQuestions([]);
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("Questions fetch failed:", err);
         setQuestions([]);
       });
   }, []);
@@ -1156,9 +1162,7 @@ export default function App() {
   // ─────────────────────────────────────────────
   function handleDepartment(dept) {
     setSelectedDept(dept);
-    const filtered = questions.filter(
-      (q) => (q.Department || q.department) === dept
-    );
+    const filtered = questions.filter((q) => q.Department === dept);
     const shuffled = [...filtered].sort(() => 0.5 - Math.random());
     setFilteredQuestions(shuffled.slice(0, 10));
     setScore(null);
@@ -1188,7 +1192,7 @@ export default function App() {
     let total = 0;
     filteredQuestions.forEach((q, index) => {
       const selected = document.querySelector(`input[name="q${index}"]:checked`);
-      if (selected && selected.value === q.correct) total++;
+      if (selected && selected.value === q["Correct Answer"]) total++;
     });
     const finalResult = total >= 6 ? "PASS" : "FAIL";
     setScore(total);
@@ -1319,10 +1323,11 @@ export default function App() {
   const departments = [
     ...new Set(
       questions
-        .map((q) => q.Department || q.department)
+        .map((q) => q.Department)
         .filter((d) => d !== undefined && d !== null && d !== "")
     ),
   ];
+  console.log("Departments:", departments);
 
   const mins       = Math.floor(timeLeft / 60);
   const secs       = String(timeLeft % 60).padStart(2, "0");
@@ -1582,14 +1587,14 @@ export default function App() {
               >
                 <div className="q-header">
                   <div className="q-number">{index + 1}</div>
-                  <div className="q-text">{q.question}</div>
+                  <div className="q-text">{q.Question}</div>
                 </div>
                 <div className="options-grid">
                   {[
-                    { key: "A", text: q.optionA },
-                    { key: "B", text: q.optionB },
-                    { key: "C", text: q.optionC },
-                    { key: "D", text: q.optionD },
+                    { key: "A", text: q["Option A"] },
+                    { key: "B", text: q["Option B"] },
+                    { key: "C", text: q["Option C"] },
+                    { key: "D", text: q["Option D"] },
                   ].map(({ key, text }) => (
                     <label className="option-label" key={key}>
                       <input type="radio" name={`q${index}`} value={key} />
