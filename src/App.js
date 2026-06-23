@@ -991,6 +991,54 @@ const styles = `
     margin: 0 auto 12px;
   }
 
+  .td-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+    border: none;
+    line-height: 1;
+  }
+  .action-btn:hover {
+    transform: translateY(-1px);
+  }
+  .action-btn:active {
+    transform: translateY(0);
+  }
+  .action-btn svg {
+    flex-shrink: 0;
+  }
+  .email-btn {
+    background: linear-gradient(135deg, #e0eaff, #ede0ff);
+    color: #4f3fa0;
+    border: 1px solid #c7d2fe;
+  }
+  .email-btn:hover {
+    background: linear-gradient(135deg, #c7d2fe, #dbeafe);
+    box-shadow: 0 4px 12px rgba(79, 63, 160, 0.15);
+  }
+  .wa-btn {
+    background: linear-gradient(135deg, #e6fcf5, #d3f9d8);
+    color: #0b7285;
+    border: 1px solid #b2f2bb;
+  }
+  .wa-btn:hover {
+    background: linear-gradient(135deg, #b2f2bb, #c3fae8);
+    box-shadow: 0 4px 12px rgba(11, 114, 133, 0.15);
+  }
+
   .btn-dashboard {
     width: 100%;
     padding: 13px;
@@ -1918,12 +1966,13 @@ export default function App() {
                       <th>Email</th>
                       <th>Mobile Number</th>
                       <th>Status</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {dashLoading ? (
                       <tr className="loading-row">
-                        <td colSpan="4">
+                        <td colSpan="5">
                           <div className="dash-spinner" />
                           <div
                             style={{
@@ -1938,7 +1987,7 @@ export default function App() {
                       </tr>
                     ) : filteredDash.length === 0 ? (
                       <tr>
-                        <td colSpan="4">
+                        <td colSpan="5">
                           <div className="no-data">
                             <div className="no-data-icon">🗂️</div>
                             <p>No records found</p>
@@ -1954,6 +2003,16 @@ export default function App() {
                       filteredDash.map((row, i) => {
                         const isPass =
                           (row[5] || "").toUpperCase() === "PASS";
+
+                        const emailSubject = "Application Update";
+                        const emailBody = `Dear ${row[0] || "Candidate"},\n\nThank you for participating in the assessment process with OSWAL Hiring Portal.\n\nYour application has been successfully reviewed. Our HR team will contact you regarding the next steps if your profile matches our current requirements.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
+                        const emailUrl = `mailto:${row[1] || ""}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+                        const waMessage = `Dear ${row[0] || "Candidate"},\n\nThank you for appearing in the assessment conducted by OSWAL Hiring Portal.\n\nYour application has been received successfully. Our HR team will review your profile and contact you regarding further updates if shortlisted.\n\nRegards,\nHR Team\nOSWAL Hiring Portal`;
+                        const cleanedMobile = (row[2] || "").replace(/\D/g, "");
+                        const waNumber = cleanedMobile.length === 10 ? `91${cleanedMobile}` : cleanedMobile;
+                        const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+
                         return (
                           <tr key={i}>
                             <td className="td-name">{row[0] || "—"}</td>
@@ -1967,6 +2026,33 @@ export default function App() {
                               >
                                 {isPass ? "✓ PASS" : "✗ FAIL"}
                               </span>
+                            </td>
+                            <td>
+                              <div className="td-actions">
+                                <a
+                                  href={emailUrl}
+                                  className="action-btn email-btn"
+                                  title="Send Email"
+                                >
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                    <polyline points="22,6 12,13 2,6" />
+                                  </svg>
+                                  <span>Email</span>
+                                </a>
+                                <a
+                                  href={waUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="action-btn wa-btn"
+                                  title="Send WhatsApp Message"
+                                >
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                                  </svg>
+                                  <span>WhatsApp</span>
+                                </a>
+                              </div>
                             </td>
                           </tr>
                         );
