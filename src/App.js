@@ -1344,10 +1344,10 @@ const styles = `
   }
   .company-logo-text {
     font-family: 'Nunito', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 23px;
+    font-weight: 700;
     letter-spacing: 0.5px;
-    color: #1a1d3b;
+    color: #2563EB;
   }
 
   /* Branding Badge (Header & Dashboard) */
