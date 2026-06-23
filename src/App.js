@@ -1071,7 +1071,7 @@ const EXAM_API =
 // The same Apps Script handles ?action=getResults
 // ─────────────────────────────────────────────
 const RESULTS_API =
-  "https://script.google.com/macros/s/AKfycbxfUTjHz4K1Ot9I41n2junHHhPJowInlFHszVeSNBTg_I0gIMtmnwyKL5ouHL3z9vVy/exec";
+  "https://script.google.com/macros/s/AKfycbxfUTjHz4K1Ot9I41n2junHHhPJowInlFHszVeSNBTg_I0gIMtmnwyKL5ouHL3z9vVy/exec?action=getResults";
 
 // ─────────────────────────────────────────────
 // Hardcoded Admin Credentials
@@ -1114,13 +1114,14 @@ export default function App() {
     fetch(EXAM_API)
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          console.log("Questions Loaded:", data.length);
-          console.log("Questions Data:", data);
-          console.log("First Record:", data[0]);
-          setQuestions(data);
+        const questionsList = Array.isArray(data) ? data : (data && data.data) || [];
+        if (questionsList.length > 0) {
+          console.log("Questions Loaded:", questionsList.length);
+          console.log("Questions Data:", questionsList);
+          console.log("First Record:", questionsList[0]);
+          setQuestions(questionsList);
         } else {
-          console.log("Questions Loaded: 0 (response not array)");
+          console.log("Questions Loaded: 0 (response not array or empty)");
           console.log("Questions Data:", data);
           setQuestions([]);
         }
@@ -1162,7 +1163,7 @@ export default function App() {
   // ─────────────────────────────────────────────
   function handleDepartment(dept) {
     setSelectedDept(dept);
-    const filtered = questions.filter((q) => q.Department === dept);
+    const filtered = questions.filter((q) => (q.Department || q.department) === dept);
     const shuffled = [...filtered].sort(() => 0.5 - Math.random());
     setFilteredQuestions(shuffled.slice(0, 10));
     setScore(null);
@@ -1192,7 +1193,8 @@ export default function App() {
     let total = 0;
     filteredQuestions.forEach((q, index) => {
       const selected = document.querySelector(`input[name="q${index}"]:checked`);
-      if (selected && selected.value === q["Correct Answer"]) total++;
+      const correctAnswer = q["Correct Answer"] || q.correct || q.correctAnswer;
+      if (selected && selected.value === correctAnswer) total++;
     });
     const finalResult = total >= 6 ? "PASS" : "FAIL";
     setScore(total);
@@ -1323,7 +1325,7 @@ export default function App() {
   const departments = [
     ...new Set(
       questions
-        .map((q) => q.Department)
+        .map((q) => q.Department || q.department)
         .filter((d) => d !== undefined && d !== null && d !== "")
     ),
   ];
@@ -1587,14 +1589,14 @@ export default function App() {
               >
                 <div className="q-header">
                   <div className="q-number">{index + 1}</div>
-                  <div className="q-text">{q.Question}</div>
+                  <div className="q-text">{q.Question || q.question}</div>
                 </div>
                 <div className="options-grid">
                   {[
-                    { key: "A", text: q["Option A"] },
-                    { key: "B", text: q["Option B"] },
-                    { key: "C", text: q["Option C"] },
-                    { key: "D", text: q["Option D"] },
+                    { key: "A", text: q["Option A"] || q.optionA || q.optiona },
+                    { key: "B", text: q["Option B"] || q.optionB || q.optionb },
+                    { key: "C", text: q["Option C"] || q.optionC || q.optionc },
+                    { key: "D", text: q["Option D"] || q.optionD || q.optiond },
                   ].map(({ key, text }) => (
                     <label className="option-label" key={key}>
                       <input type="radio" name={`q${index}`} value={key} />
